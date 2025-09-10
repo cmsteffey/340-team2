@@ -1,0 +1,68 @@
+
+body {
+    background-color: aquamarine;
+
+}
+input {
+    align-content: center;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: darkcyan;
+    border: 2px solid black;
+}
+.topnav a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+.topnav a.hover {
+    background-color:rgb(0, 104, 104);
+}
+.topnav a.active {
+    background-color:cadetblue;
+}
+
+.button{
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.pageTitle{
+    text-align: center;
+    margin: 10px;
+    background-color: rgb(77, 223, 174);
+    border: 2px solid black;
+}
+
+.wrapper
+{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-basis: content;
+    
+}
+.text-div{
+    margin:10px 0px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+.image-div
+{
+    flex: 1;
+    margin: 10px;
+    background-color: rgb(77, 223, 174);
+    border: 2px solid black;
+}
