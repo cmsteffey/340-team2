@@ -2,7 +2,7 @@
 ## For Magicoach
 
 Version 0.1  
-Prepared by Sasha Steffey
+Prepared by Sasha Steffey, Evan Spiering
 09/17/2025
 
 Table of Contents
@@ -88,27 +88,46 @@ This product has a requirement to be built fully in Java. This may impact ease o
 * Non-paying users: Client Users who do not regularly use coaches' paid services. Not as important.
 
 ### 2.4 Assumptions and Dependencies
-List any assumed factors (as opposed to known facts) that could affect the requirements stated in the SRS. These could include third-party or commercial components that you plan to use, issues around the development or operating environment, or constraints. The project could be affected if these assumptions are incorrect, are not shared, or change. Also identify any dependencies the project has on external factors, such as software components that you intend to reuse from another project, unless they are already documented elsewhere (for example, in the vision and scope document or the project plan).
-(You do this one)
-(Include scryfall)
+Our website will be closely tied to Scryfall which provides a magic the gathering API as well as allows users to upload decks through their website. Although decks will be able to be uploaded through our website and held on the users account, we will be using scryfall API and backend to support this import. Before initial development of the project there was small work done on figuring out how to implement the Scryfall API. This work was mostly just to test some things here and there and will not majorly impact the development process.
 
 ## 3. Requirements
 
 ### 3.1 Functional Requirements 
-This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
+The site shall allow users to sign up and log in to their accounts.
+The site shall allow coaches to sign up and log in through a seperate coach sign in.
+The site shall be able to upload decks within five seconds of submitting the request.
 
-The specific requirements should:
-* Be uniquely identifiable.
-* State the subject of the requirement (e.g., system, software, etc.) and what shall be done.
-* Optionally state the conditions and constraints, if any.
-* Describe every input (stimulus) into the software system, every output (response) from the software system, and all functions performed by the software system in response to an input or in support of an output.
-* Be verifiable (e.g., the requirement realization can be proven to the customer's satisfaction)
-* Conform to agreed upon syntax, keywords, and terms.
+The users shall be able to write reviews for coaches.
+The users shall be able to filter their coach search in order to find a coach easier.
 
-(You do this one)
+The users AND coaches shall be able to upload decks to their profile to store.
+
+The coaches shall be able to setup schedules for availability.
+The coaches shall be able to make posts for users who follow them to see.
+The coaches shall be able to add tags in order for users to find them easier.
+The coaches shall be able to add past achievements to their webpage to increase validity.
 
 #### 3.1.1 User interfaces
 Define the software components for which a user interface is needed. Describe the logical characteristics of each interface between the software product and the users. This may include sample screen images, any GUI standards or product family style guides that are to be followed, screen layout constraints, standard buttons and functions (e.g., help) that will appear on every screen, keyboard shortcuts, error message display standards, and so on. Details of the user interface design should be documented in a separate user interface specification.
+
+(global)
+- Each page will have a home icon in the top left corner which will redirect the user back to the home page regardless of where they are in the site. This icon will be the logo of our webpage.
+- Home page which displays a banner of highly rated coaches along with a search field below followed by a vertical container holding the search results (more coaches)
+
+(User required)
+- Users will need a login page in order to log in and sign up into their account.
+- Users will need a profile tab to change their preferences, profile picture, information etc.
+- Users will need a tab in order to import their decks and view their other imported decks.
+- Users will need a calendar or schedule tab in order to find and make appointments with coaches.
+
+(User convenience)
+- Users would use a dashboard which has only the most important parts of each page in order to see everything in one place like their most recent deck, last coaching session, upcoming coaching sessions, and recommended coaches.
+- Users would use an advanced filtering menu to sort through their decks using color, card inclusion, average mana cost, etc.
+- Users would use a discussion board to talk with other users about their decks and upcoming events.
+
+(Coach required)
+
+(coach convenience)
 
 Could be further divided into Usability and Convenience requirements.
 (You do your half of the users, I will fill in mine)
@@ -131,11 +150,10 @@ Passwords will not be directly stored, instead using salted hashes. Users will b
 #### 3.2.3 Reliability
 500-type errors will be returned at an average of 0.5% of requests or lower, not including scheduled maintenance windows. This error rate will be tracked. 
 
-#### 3.2.4 Availability
-Specify the factors required to guarantee a defined availability level for the entire system such as checkpoint, recovery, and restart.
-(You do this one)
+#### 3.2.4 Availability 
+Any maintenecne or planned downtimes will be mentioned with a banner on the home page at least a week before the down time is going to happen. Down time will be planned to take place in off hours in order to affect the least possible number of users. In the event of an unplanned down time there will be mention of it throughout other social media platforms to let the users know what is going on with the site.
 
-#### 3.2.5 Compliance
+#### 3.2.5 Compliance 
 Specify the requirements derived from existing standards or regulations
 
 #### 3.2.6 Cost
