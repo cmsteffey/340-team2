@@ -61,7 +61,6 @@ Magicoach will compile with the current Java compiler (JDK 25 LTS) without warni
 This document lays out the product specifications including functions, constraints, interfaces, and requirements. Refer to the table of contents to view a specific section.
 
 ## 2. Product Overview
-This section should describe the general factors that affect the product and its requirements. This section does not state specific requirements. Instead, it provides a background for those requirements, which are defined in detail in Section 3, and makes them easier to understand.
 
 ### 2.1 Product Functions
 For coach users: 
@@ -126,18 +125,19 @@ Define the software components for which a user interface is needed. Describe th
 - Users would use a discussion board to talk with other users about their decks and upcoming events.
 
 (Coach required)
-
+- Coaches will need a login page to log in and sign up
+- Coaches will need a profile page to edit their profile
+- Coaches will need a dashboard for seeing stats, making posts, and seeing recent reviews
 (coach convenience)
-
-Could be further divided into Usability and Convenience requirements.
-(You do your half of the users, I will fill in mine)
+- Coaches should be able to access their own page from how a user would see it
+- Coaches should be able to choose whether their posts notify their subscribers
 
 #### 3.1.2 Hardware interfaces
 The software will handle requests and connections over HTTP through a standard TCP socket. Both HTTP/2 and HTTP/1.1 will be supported, with TLS (https). Communication with the database will use internal sockets, and the database will not be exposed to the open Internet.
 
 #### 3.1.3 Software interfaces
-Describe the connections between this product and other specific software components (name and version), including databases, operating systems, tools, libraries, and integrated commercial components. Identify the data items or messages coming into the system and going out and describe the purpose of each. Describe the services needed and the nature of communications. Refer to documents that describe detailed application programming interface protocols. Identify data that will be shared across software components. If the data sharing mechanism must be implemented in a specific way (for example, use of a global data area in a multitasking operating system), specify this as an implementation constraint.
-(I will do this one)
+
+This product will use PostgreSQL 17 to store data. It will run on a Linux Ubuntu server. It will use the Scryfall deck and card API over HTTP, only ever retrieving data. All data from the database will be proxied through an HTTP API, no data will leave PostgreSQL directly. Spring/Boot will be the server for the API and page serving. PSQL and the server will talk over local sockets, and information will only transfer through the server.
 
 ### 3.2 Non Functional Requirements 
 
@@ -151,10 +151,10 @@ Passwords will not be directly stored, instead using salted hashes. Users will b
 500-type errors will be returned at an average of 0.5% of requests or lower, not including scheduled maintenance windows. This error rate will be tracked. 
 
 #### 3.2.4 Availability 
-Any maintenecne or planned downtimes will be mentioned with a banner on the home page at least a week before the down time is going to happen. Down time will be planned to take place in off hours in order to affect the least possible number of users. In the event of an unplanned down time there will be mention of it throughout other social media platforms to let the users know what is going on with the site.
+Any maintenance or planned downtime will be mentioned with a banner on the home page at least a week before the down time is going to happen. Down time will be planned to take place in off hours in order to affect the least possible number of users. In the event of an unplanned down time there will be mention of it throughout other social media platforms to let the users know what is going on with the site.
 
 #### 3.2.5 Compliance 
-Specify the requirements derived from existing standards or regulations
+The Java runtime and PSQL applications will be kept up to date. 
 
 #### 3.2.6 Cost
 None
