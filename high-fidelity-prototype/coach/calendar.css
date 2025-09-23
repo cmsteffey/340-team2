@@ -1,9 +1,5 @@
 ﻿main {
-    right: 0;
-    position: absolute;
-    top: var(--top-bar-height);
     height: calc(100% - var(--top-bar-height));
-    width: calc(100% - var(--navbar-width) - var(--navbar-gap));
 }
 main > h1 {
     height: 40px;

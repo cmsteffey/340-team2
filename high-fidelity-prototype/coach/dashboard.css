@@ -1,11 +1,4 @@
-﻿main {
-    right: 0;
-    position: absolute;
-    top: var(--top-bar-height);
-    height: max-content;
-    width: calc(100% - var(--navbar-width) - var(--navbar-gap));
-}
-.dashbox-container {
+﻿.dashbox-container {
     display: flex;
     flex-flow: row nowrap;
     gap: 30px;
