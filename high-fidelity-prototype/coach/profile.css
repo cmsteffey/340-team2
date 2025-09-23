@@ -1,0 +1,31 @@
+﻿main {
+    right: 0;
+    position: absolute;
+    top: var(--top-bar-height);
+    height: max-content;
+    width: calc(100% - var(--navbar-width) - var(--navbar-gap));
+}
+main > h1 {
+    height: 40px;
+    margin: 0;
+}
+#profile-image {
+    border-radius: 50%;
+    width: 300px;
+    aspect-ratio: 1/1;
+}
+#about {
+    display:flex;
+    flex-flow: row nowrap;
+    gap: 20px;
+}
+#ad-title, #post-title {
+    font-size: 30px;
+    width: 600px;
+}
+#ad-description, #post-content{
+    width: 602px;
+    font-size: 20px;
+    height: 250px;
+    font-family: "Arial"
+}

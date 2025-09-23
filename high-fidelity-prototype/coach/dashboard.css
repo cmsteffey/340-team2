@@ -1,0 +1,34 @@
+﻿main {
+    right: 0;
+    position: absolute;
+    top: var(--top-bar-height);
+    height: max-content;
+    width: calc(100% - var(--navbar-width) - var(--navbar-gap));
+}
+.dashbox-container {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 30px;
+}
+.dashbox {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+.dashbox-title {
+    font-size: 20px;
+    height: 20px;
+    width: max-content;
+    margin: 0 0 0 5px;
+    position: absolute;
+    top: 0;
+}
+.dashbox-content {
+    bottom: 0;
+    position: absolute;
+    height: 170px;
+    width: 100%;
+    margin: auto;
+}

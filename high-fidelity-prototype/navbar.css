@@ -1,0 +1,40 @@
+﻿:root {
+    --top-bar-height: 50px;
+    --navbar-width: 12%;
+    --navbar-gap: 10px;
+}
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+@media (max-device-aspect-ratio: 1) {
+    #navbar {
+        display: none !important;
+    }
+    #navpopover {
+        display: inline !important;
+    }
+}
+#navbar {
+    background-color: #EEE;
+    position: fixed;
+    top: var(--top-bar-height);
+    height: calc(100% - var(--top-bar-height));
+    width: var(--navbar-width);
+    left: 0;
+    display: flex;
+    flex-flow: column nowrap;
+}
+#navbar > a {
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    justify-content: center;
+    font-size: 25px;
+
+    transition: background-color 150ms ease-in-out;
+}
+#navbar > a:hover {
+    background-color: #aaa;
+}
