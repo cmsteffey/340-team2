@@ -10,6 +10,15 @@ main {
     height: max-content;
     width: calc(100% - var(--navbar-width) - var(--navbar-gap));
 }
+.header {
+    position: fixed;
+    width: 100%;
+    height: var(--top-bar-height);
+    background: rgb(26, 156, 179);
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
 html, body {
     height: 100%;
     padding: 0;
