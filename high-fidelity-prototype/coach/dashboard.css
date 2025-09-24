@@ -1,14 +1,19 @@
-﻿.dashbox-container {
+﻿main > h1 {
+    height: 40px;
+    margin: 0;
+}
+.dashbox-container {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     gap: 30px;
 }
 .dashbox {
     border: 1px solid #ddd;
     border-radius: 4px;
     height: 200px;
-    width: 200px;
+    width: 300px;
     position: relative;
+    box-shadow: 5px 2px 6px #EED;
 }
 .dashbox-title {
     font-size: 20px;
