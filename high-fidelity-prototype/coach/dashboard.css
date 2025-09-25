@@ -1,10 +1,9 @@
 ﻿main > h1 {
     height: 40px;
     margin: 0;
+    color: white;
 }
-body {
-    background: rgb(153, 191, 192);
-}
+
 .dashbox-container {
     display: flex;
     flex-flow: row wrap;
@@ -17,6 +16,7 @@ body {
     width: 300px;
     position: relative;
     box-shadow: 4px 2px 4px hsl(from rgb(153, 191, 192) h s calc(l*0.7));
+    background-color: rgb(153, 191, 192)
 }
 .dashbox-title {
     font-size: 20px;
