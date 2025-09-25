@@ -10,6 +10,15 @@ main {
     height: max-content;
     width: calc(100% - var(--navbar-width) - var(--navbar-gap));
 }
+.header {
+    position: fixed;
+    width: 100%;
+    height: var(--top-bar-height);
+    background: rgb(122, 158, 166);
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
 html, body {
     height: 100%;
     padding: 0;
@@ -24,7 +33,7 @@ html, body {
     }
 }
 #navbar {
-    background-color: #EEE;
+    background-color: rgb(77, 80, 97);
     position: fixed;
     top: var(--top-bar-height);
     height: calc(100% - var(--top-bar-height));
@@ -43,5 +52,5 @@ html, body {
     transition: background-color 50ms ease-in-out;
 }
 #navbar > a:hover {
-    background-color: #aaa;
+    background-color: rgb(233, 237, 222);
 }
