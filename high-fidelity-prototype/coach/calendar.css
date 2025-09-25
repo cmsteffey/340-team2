@@ -7,7 +7,7 @@
     --blue-appointment-border: mediumblue;
     --red-appointment-background: pink;
     --red-appointment-border: red;
-    --day-border-color: hsl(from #3769c6 h calc(s * 1.2) l);
+    --day-border-color: hsl(from #3769c6 h s calc(l * 1.2));
 }
 main {
     height: calc(100% - var(--top-bar-height));
@@ -15,10 +15,9 @@ main {
 main > h1 {
     height: 40px;
     margin: 0;
+    color: white;
 }
-body {
-    background-color: rgb(153, 191, 192)
-}
+
 .day-box {
     border-left: 2px solid var(--day-border-color);
     border-top: 2px solid var(--day-border-color);
@@ -28,6 +27,7 @@ body {
     margin-top: 5px;
     margin-left: 5px;
     margin-bottom: 0;
+    color: white;
 }
 .row5 {
     border-bottom: 2px solid var(--day-border-color);

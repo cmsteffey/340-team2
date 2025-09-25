@@ -1,9 +1,13 @@
 ﻿main > h1 {
     height: 40px;
     margin: 0;
+    color: white;
 }
-body {
-    background: rgb(153, 191, 192);
+main h2 {
+    color: white;
+}
+main p {
+    color: white;
 }
 #profile-image {
     border-radius: 50%;
@@ -24,4 +28,11 @@ body {
     font-size: 20px;
     height: 250px;
     font-family: "Arial"
+}
+input, textarea {
+    background-color: rgb(153, 191, 192)
+}
+#posts > div {
+    border: 1px solid white;
+    padding-left: 10px;
 }
