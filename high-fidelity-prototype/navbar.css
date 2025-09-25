@@ -3,6 +3,7 @@
     --navbar-width: 12%;
     --navbar-gap: 10px;
 }
+*{ font-family: Inter, sans-serif; }
 main {
     right: 0;
     position: absolute;
@@ -33,7 +34,7 @@ html, body {
     }
 }
 #navbar {
-    background-color: rgb(77, 80, 97);
+    background-color: hsl(from #7A9EA6FF h s calc(l*0.7));
     position: fixed;
     top: var(--top-bar-height);
     height: calc(100% - var(--top-bar-height));
@@ -41,6 +42,16 @@ html, body {
     left: 0;
     display: flex;
     flex-flow: column nowrap;
+
+}
+#login-link {
+    color: white;
+    right: 10px;
+    position: absolute;
+    height: var(--top-bar-height);
+    font-size: calc(0.6*var(--top-bar-height));
+    top: calc(0.1 * var(--top-bar-height));
+    text-decoration: none;
 }
 #navbar > a {
     width: 100%;
@@ -48,9 +59,15 @@ html, body {
     height: 40px;
     justify-content: center;
     font-size: 25px;
-
+    color: white;
+    text-decoration: none;
     transition: background-color 50ms ease-in-out;
 }
 #navbar > a:hover {
     background-color: rgb(233, 237, 222);
+}
+.icon {
+    padding-left: 20px;
+    align-self: center;
+    justify-self: start;
 }
