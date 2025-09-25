@@ -11,7 +11,7 @@ body {
 }
 
 p {
-    color: rgb(233, 237, 222);
+    color: black;
     font-family: fantasy;
     text-align: center;
 }
@@ -20,7 +20,7 @@ h3 {
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
-    color: rgb(233, 237, 222);
+    color: black;
     font-family: fantasy;
 }
 
