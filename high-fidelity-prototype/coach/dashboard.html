@@ -20,6 +20,7 @@
         </nav>
         <main>
             <h1>Dashboard</h1>
+            <button id="add-block" popovertarget="add-block-menu">+</button>
             <div class="dashbox-container">
                 <div class="dashbox">
                     <h2 class="dashbox-title">Week Revenue</h2>
@@ -41,7 +42,27 @@
                     <h2 class="dashbox-title">Review Rate</h2>
                     <img class="dashbox-content" src="pie.png">
                 </div>
+                <div class="dashbox" hidden id="sr-block">
+                    <h2 class="dashbox-title">Service Requests</h2>
+
+                    <h1 class="dashbox-content">Anna Ericsson: Coaching<br>09/28/2025</h1>
+                </div>
             </div>
         </main>
+        <div popover id="add-block-menu" style="background-color: rgb(153, 191, 192)">
+            <span>- Week Revenue</span><br>
+            <span>- Week Revenue</span><br>
+            <span>- Daily New Subscribers</span><br>
+            <span>- New Reviews</span><br>
+            <span>- Post Stats</span><br>
+            <span>- Review Rate</span><br>
+            <span id="add-sr">+ Service Requests</span>
+        </div>
+        <script>
+            document.getElementById("add-sr").onclick = (e) => {
+                document.getElementById("add-block-menu").togglePopover(false);
+                document.getElementById("sr-block").hidden = false;
+            }
+        </script>
     </body>
 </html>
