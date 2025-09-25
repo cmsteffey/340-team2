@@ -12,12 +12,10 @@ body {
 
 p {
     color: black;
-    font-family: fantasy;
 }
 
 h3 {
     color: black;
-    font-family: fantasy;
 }
 
 .container {
@@ -45,7 +43,6 @@ h3 {
 }
 .event {
     font-size: 20px;
-    font-family: fantasy;
     color: black;
     display: flex;
     justify-content: left;
@@ -139,7 +136,6 @@ h3 {
     width: 35px;
 }
 input[type="text"] {
-    font-family: fantasy;
     color: black;
     width: 100%;
     padding: 8px;
@@ -152,7 +148,6 @@ input[type="text"] {
 
 .searchResultsBox {
     background-color: rgb(92, 128, 188);
-    font-family: fantasy;
     display: flex;
     flex-direction: column;
     border-radius: 7px;
