@@ -2,6 +2,9 @@
     height: 40px;
     margin: 0;
 }
+body {
+    background: rgb(153, 191, 192);
+}
 #profile-image {
     border-radius: 50%;
     width: 300px;

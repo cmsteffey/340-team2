@@ -1,14 +1,22 @@
-﻿.dashbox-container {
+﻿main > h1 {
+    height: 40px;
+    margin: 0;
+}
+body {
+    background: rgb(153, 191, 192);
+}
+.dashbox-container {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     gap: 30px;
 }
 .dashbox {
-    border: 1px solid #ddd;
+    border: 1px solid hsl(from rgb(153, 191, 192) h s calc(l*1.2));
     border-radius: 4px;
     height: 200px;
-    width: 200px;
+    width: 300px;
     position: relative;
+    box-shadow: 4px 2px 4px hsl(from rgb(153, 191, 192) h s calc(l*0.7));
 }
 .dashbox-title {
     font-size: 20px;
@@ -22,6 +30,11 @@
     bottom: 0;
     position: absolute;
     height: 170px;
-    width: 100%;
     margin: auto;
+}
+.dashbox-content:not(img) {
+    width: 100%;
+}
+img.dashbox-content {
+    aspect-ratio: 1 / 1;
 }

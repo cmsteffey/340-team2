@@ -1,0 +1,40 @@
+﻿html, body {
+  height: 100%;
+}
+body {
+    background-color: rgb(153, 191, 192)
+}
+.main {
+    height: 100%;
+}
+form {
+    padding: 10px;
+    background-color: hsl(from rgb(153, 191, 192) h s calc(l*0.8));
+    margin: 0 auto;
+    width: max-content;
+    border-radius: 5px;
+    position: absolute;
+    top: 50vh;
+    top: 50dvh;
+    left: 50vw;
+    left: 50dvw;
+    transform: translate(-50%, -50%);
+}
+form > input:not([type="submit"]) {
+    appearance: none;
+    font-size: 30px;
+    font-family: Inter;
+    border: none;
+    border-bottom: 2px solid black;
+    background-color: transparent;
+}
+form > input:not([type="submit"])::placeholder {
+    color: rgba(0 0 0 / 50%)
+}
+form > input[type="submit"]{
+    font-family: Inter;
+    background-color: hsl(from rgb(153, 191, 192) h s calc(l*0.7));
+    border: 1px solid hsl(from rgb(153, 191, 192) h s calc(l*0.3));
+    font-size: 20px;
+    border-radius: 3px;
+}
