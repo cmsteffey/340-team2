@@ -40,7 +40,7 @@ html, body {
     justify-content: center;
     font-size: 25px;
 
-    transition: background-color 150ms ease-in-out;
+    transition: background-color 50ms ease-in-out;
 }
 #navbar > a:hover {
     background-color: #aaa;
