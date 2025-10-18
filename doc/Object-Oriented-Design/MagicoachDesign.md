@@ -2,7 +2,7 @@
 
 Version 1  
 Prepared by Sasha Steffey and Evan Spiering\
-LocalHarvest Hub\
+Magicoach\
 Oct 18, 2025
 
 Table of Contents
@@ -12,7 +12,7 @@ Table of Contents
 * 2 [Use Cases](#2-use-cases)
     * 2.1 [Use Case Model](#21-use-case-model)
     * 2.2 [Use Case Descriptions](#22-use-case-descriptions)
-        * 2.2.1 [Actor: Farmer](#221-actor-coach)
+        * 2.2.1 [Actor: Coach](#221-actor-coach)
         * 2.2.2 [Actor: Customer](#222-actor-customer)
 * 3 [UML Class Diagram](#3-uml-class-diagram)
 * 4 [Database Schema](#4-database-schema)
