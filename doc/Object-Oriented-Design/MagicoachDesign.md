@@ -53,7 +53,21 @@ A coach shall be able to create events with an address, time, entrance cost, and
 
 #### 2.2.2 Actor: Customer
 ##### 2.2.2.1 Sign Up
+A customer can create a profile with an email, username, password. Every customer has to have a unique email.
 ##### 2.2.2.2 Log In
+Every customer can log into their account by providing their email and password provided during account sign up. Each user will be put on the dashboard/home page once they have signed in successfully.
+##### 2.2.2.3 Update Profile
+Customers will be able to access their profile page which will allow them to customize features about their profile like their display name, email, and password if needed. This is also where you would be able to add a payment method to your account in order to pay for coaching.
+##### 2.2.2.4 Import Decks
+Customers will have the ability to import decks from scryfall into the website through the export link from scryfall. This deck will be viewable through the user decks tab.
+##### 2.2.2.5 Create Replies
+Customers will be able to create replies from their dashboard on any posts made by coaches in order to provide feedback to the coach and share their opinions on the topic.
+##### 2.2.2.6 Schedule Coaching Sessions
+Customers will be able to pick a coach and sign up for a coaching session through the dashboard by clicking on the coach and selected a time slot.
+##### 2.2.2.7 Subscribe to Coach
+Customers will be able to subscribe to a coach so that any future posts from the coach will leave a notification on their website explorer (top bar) which they can click to visit the post made from the coach.
+##### 2.2.2.8 Join Events
+Customers will be able to RSVP to events notifying the coach that they will be attending the event.
 
 ## 3. UML Class Diagram
 ![UML Class Diagram](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/class-diagram.png)
