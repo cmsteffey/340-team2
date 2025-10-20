@@ -28,7 +28,7 @@ Table of Contents
 
 ## 2. Use Cases
 ### 2.1 Use Case Model
-![Use Case Model](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/use-case.png)
+![Use Case Model](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/UseCaseModel.png)
 
 ### 2.2 Use Case Descriptions
 
@@ -72,4 +72,4 @@ Customers will be able to RSVP to events notifying the coach that they will be a
 ## 3. UML Class Diagram
 ![UML Class Diagram](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/class-diagram.png)
 ## 4. Database Schema
-![UML Class Diagram](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/schema.png)
+![Database Schema](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/DatabaseSchema.png)
