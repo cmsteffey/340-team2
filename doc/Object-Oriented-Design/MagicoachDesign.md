@@ -58,4 +58,4 @@ A coach shall be able to create events with an address, time, entrance cost, and
 ## 3. UML Class Diagram
 ![UML Class Diagram](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/class-diagram.png)
 ## 4. Database Schema
-![UML Class Diagram](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/schema.png)
+![DB Schema](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/schema.png)
