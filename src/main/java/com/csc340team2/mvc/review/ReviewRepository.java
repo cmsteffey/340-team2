@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-
+    //could add something like return rating > x or < x
 }
