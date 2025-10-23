@@ -13,6 +13,13 @@
         </#if>
     </div>
 </#macro>
+<#macro comment commenter time content>
+    <div class="commentBox">
+        <h2 class="comment-commenter">${commenter}</h2>
+        <h5 class="comment-content">${content}</h5>
+        <h6 class="comment-time">${time}</h6>
+    </div>
+</#macro>
 <#macro dashbox title>
     <div class="dashbox">
         <h2 class="dashbox-title">${title}</h2>

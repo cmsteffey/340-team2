@@ -105,6 +105,13 @@ public class ApiController {
         if(comment.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(comment.get());
     }
+    //@PostMapping("/comment/{id}")
+    // public ResponseEntity postDeckComment(@PathVariable Long id, @RequestBody Comment updatedComment)
+    // {
+    //     Optional<Comment> comment = commentRepository.findById(id);
+    //     if(comment.isEmpty()) return ResponseEntity.notFound().build();
+    //     comment.get()
+    // }
     @PutMapping("/comments/{id}")
     public ResponseEntity updateComment(@PathVariable Long id, @RequestBody Comment updatedComment)
     {
