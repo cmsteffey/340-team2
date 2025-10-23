@@ -9,7 +9,7 @@
         <#if currentAccount??>
             <a class="login-link profile-link" href="/view/profile">My Account: ${currentAccount.username}</a>
         <#else>
-            <a id="login-link" href="/view/login">Log In</a>
+            <a class="login-link profile-link" href="/view/login">Log In</a>
         </#if>
     </div>
 </#macro>
