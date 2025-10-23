@@ -1,5 +1,6 @@
 package com.csc340team2.mvc;
 
+import com.csc340team2.mvc.appointment.Appointment;
 import com.csc340team2.mvc.appointment.AppointmentRepository;
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionRepository;
@@ -8,6 +9,7 @@ import com.csc340team2.mvc.user.Account;
 import com.csc340team2.mvc.user.AccountRepository;
 import com.csc340team2.mvc.deck.Deck;
 import com.csc340team2.mvc.deck.DeckRepository;
+import com.csc340team2.mvc.user.AccountRole;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -64,7 +65,7 @@ public class ApiController {
         Optional<Session> session = sessionService.authenticateAndCreateSession(emailNode.asText(), passwordNode.asText());
         if(session.isEmpty())
             return ResponseEntity.status(404).contentType(MediaType.TEXT_PLAIN).body("Bad credentials");
-        return ResponseEntity.status(200).header("Set-Cookie", "session_guid=" + session.orElseThrow().getKey() + "; HttpOnly=true; Secure=true")
+        return ResponseEntity.status(204).header("Set-Cookie", "session_guid=" + session.orElseThrow().getKey() + "; HttpOnly=true; Secure=true")
                 .header("Location", "/view/dashboard").build();
     }
 
@@ -79,8 +80,7 @@ public class ApiController {
     }
     @GetMapping("/appointments")
     public ResponseEntity getAppointments(Session session){
-
-        return ResponseEntity.ok(appointmentRepository.getAppointmentsByCoachId(session.getId()));
+        return ResponseEntity.ok(appointmentRepository.getAppointmentsByCoach(session.getAccount()));
     }
     @PostMapping("/decks")
     public ResponseEntity addDeck(Session session, @RequestBody Deck deck){
@@ -110,6 +110,23 @@ public class ApiController {
         model.addAttribute("decks", decks);
         LoggerFactory.getLogger(ApiController.class).warn("View called, model attr added");
         return "deckView";
+    }
+
+    @GetMapping("/view/my-decks")
+    public String viewMyDecks(Session session, Model model){
+        model.addAttribute("decks", deckRepository.getAllByAccount(session.getAccount()));
+        return "myDecksView";
+    }
+    @GetMapping("/view/calendar")
+    public String viewMyCalendar(Session session, Model model){
+        model.addAttribute("appointments",
+                session.getAccount().getRole() == AccountRole.COACH ?
+                        appointmentRepository.getAppointmentsByCoach(session.getAccount()) :
+                session.getAccount().getRole() == AccountRole.CUSTOMER ?
+                        appointmentRepository.getAppointmentsByCustomer(session.getAccount()) :
+                        null
+                );
+        return "calendar";
     }
     @GetMapping("/view/profile")
     public String viewProfile(Session session){
