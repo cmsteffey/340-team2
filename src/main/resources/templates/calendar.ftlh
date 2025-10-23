@@ -24,7 +24,14 @@
             </div>
         </main>
         <script>
-
+            let appointments = [
+            <#list appointments as appointment>
+                {
+                    month: ${appointment}
+                }
+                <#sep>,</#sep>
+            </#list>
+            ];
             let calendar = document.getElementById('calendar');
             let now = new Date();
             let firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);

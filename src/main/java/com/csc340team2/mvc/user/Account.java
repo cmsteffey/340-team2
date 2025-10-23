@@ -98,4 +98,11 @@ public class Account {
     public void setDecks(List<Deck> decks) {
         this.decks = decks;
     }
+
+    public AccountRole getRole(){
+        return role;
+    }
+    public void setRole(AccountRole role){
+        this.role = role;
+    }
 }

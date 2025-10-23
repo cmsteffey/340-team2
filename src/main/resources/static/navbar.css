@@ -1,7 +1,7 @@
 :root {
     --top-bar-height: 50px;
-    --navbar-width: 0;
-    --navbar-gap: 0;
+    --navbar-width: 0px;
+    --navbar-gap: 0px;
     --background: #0d1117;
     --header-background: #0f2537;
     --dashbox-background: #1e2a36;
@@ -15,7 +15,7 @@ main {
     position: absolute;
     top: var(--top-bar-height);
     height: max-content;
-    width: calc(100% - var(--navbar-width) - var(--navbar-gap));
+    width: calc(100% - var(--navbar-width) - var(--navbar-gap) - 40px);
     padding: 20px;
 }
 .header {

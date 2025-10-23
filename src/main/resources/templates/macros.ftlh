@@ -7,17 +7,10 @@
         <a href="/view/calendar">Calendar</a>
 
         <#if currentAccount??>
-            <a class="login-link profile-link" href="/view/profile">My Account: ${currentAccount.username}</a>
+            <a id="login-link" class="profile-link" href="/view/profile">My Account: ${currentAccount.username}</a>
         <#else>
             <a class="login-link profile-link" href="/view/login">Log In</a>
         </#if>
-    </div>
-</#macro>
-<#macro comment commenter time content>
-    <div class="commentBox">
-        <h2 class="comment-commenter">${commenter}</h2>
-        <h5 class="comment-content">${content}</h5>
-        <h6 class="comment-time">${time}</h6>
     </div>
 </#macro>
 <#macro dashbox title>

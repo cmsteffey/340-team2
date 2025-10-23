@@ -1,3 +1,4 @@
+<#import "macros.ftlh" as macros>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +8,7 @@
     <link rel="stylesheet" href="/static/profile.css">
 </head>
     <body>
-        <div class="header">
-            <a id="login-link" href="../view/profile">My Account: ${currentAccount.username}</a>
-            <div class="icon">
-                <img id="logo" src="/static/Logo.png" width="150px">
-            </div>
-        </div>
+        <@macros.header/>
         <nav id="navbar">
             <a href="/view/dashboard">Dashboard</a>
             <a href="/view/profile">Profile</a>
