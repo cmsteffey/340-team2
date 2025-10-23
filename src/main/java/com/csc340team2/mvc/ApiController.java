@@ -1,6 +1,7 @@
 package com.csc340team2.mvc;
 
 import com.csc340team2.mvc.appointment.Appointment;
+import com.csc340team2.mvc.appointment.Appointment;
 import com.csc340team2.mvc.appointment.AppointmentRepository;
 import com.csc340team2.mvc.comment.CommentRepository;
 import com.csc340team2.mvc.comment.Comment;
@@ -76,6 +77,7 @@ public class ApiController {
         Optional<Session> session = sessionService.authenticateAndCreateSession(emailNode.asText(), passwordNode.asText());
         if(session.isEmpty())
             return ResponseEntity.status(404).contentType(MediaType.TEXT_PLAIN).body("Bad credentials");
+        return ResponseEntity.status(204).header("Set-Cookie", "session_guid=" + session.orElseThrow().getKey() + "; HttpOnly=true; Secure=true")
         return ResponseEntity.status(204).header("Set-Cookie", "session_guid=" + session.orElseThrow().getKey() + "; HttpOnly=true; Secure=true")
                 .header("Location", "/view/dashboard").build();
     }
