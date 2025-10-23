@@ -10,6 +10,8 @@ import com.csc340team2.mvc.user.Account;
 import com.csc340team2.mvc.user.AccountRepository;
 import com.csc340team2.mvc.deck.Deck;
 import com.csc340team2.mvc.deck.DeckRepository;
+import com.csc340team2.mvc.review.ReviewRepository;
+import com.csc340team2.mvc.review.Review;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,8 @@ public class ApiController {
     private AppointmentRepository appointmentRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
 
     @PostMapping(value = "/sessions", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -144,7 +148,40 @@ public class ApiController {
         return ResponseEntity.ok(account.getDecks());
     }
 
-    //Review
+    //#region Review
+    @GetMapping("/reviews")
+    public ResponseEntity getAllReviews(){
+        List<Review> reviews = reviewRepository.findAll();
+        return ResponseEntity.ok(reviews);
+    }
+    @GetMapping("/reviews/{id}")
+    public ResponseEntity getReview(long id)
+    {
+        Optional<Review> review = reviewRepository.findById(id);
+        if(review.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(review.get());
+    }
+    @PutMapping("/reviews/{id}")
+    public ResponseEntity updateReview(@PathVariable Long id, @RequestBody Review updatedReview)
+    {
+        Optional<Review> review = reviewRepository.findById(id);
+        if(review.isEmpty()) return ResponseEntity.notFound().build();
+        //Update review to new review
+        review.get().setContent(updatedReview.getContent());
+        Review newReview = reviewRepository.save(review.get());
+        return ResponseEntity.ok(newReview);
+    }
+    @DeleteMapping("/reviews/{id}")
+    public ResponseEntity deleteReview(@PathVariable Long id){
+        if(!reviewRepository.existsById(id)){
+            return ResponseEntity.notFound().build();
+        }
+        reviewRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+    //#endregion
 
     @GetMapping("/view/decks")
     public String viewDecks(Model model){
