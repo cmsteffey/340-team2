@@ -1,6 +1,8 @@
 package com.csc340team2.mvc;
 
 import com.csc340team2.mvc.appointment.AppointmentRepository;
+import com.csc340team2.mvc.comment.CommentRepository;
+import com.csc340team2.mvc.comment.Comment;
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionRepository;
 import com.csc340team2.mvc.session.SessionService;
@@ -36,6 +38,8 @@ public class ApiController {
     private SessionService sessionService;
     @Autowired
     private AppointmentRepository appointmentRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     @PostMapping(value = "/sessions", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -82,6 +86,41 @@ public class ApiController {
 
         return ResponseEntity.ok(appointmentRepository.getAppointmentsByCoachId(session.getId()));
     }
+    
+    //#region Comment
+    @GetMapping("/comments")
+    public ResponseEntity getAllComments()
+    {
+        List<Comment> comments = commentRepository.findAll();
+        return ResponseEntity.ok(comments);
+    }
+    @GetMapping("/comment/{id}")
+    public ResponseEntity<Comment> getComment(@PathVariable Long id)
+    {
+        Optional<Comment> comment = commentRepository.findById(id);
+        if(comment.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(comment.get());
+    }
+    @PutMapping("/comments/{id}")
+    public ResponseEntity updateComment(@PathVariable Long id, @RequestBody Comment updatedComment)
+    {
+        Optional<Comment> comment = commentRepository.findById(id);
+        if(comment.isEmpty()) return ResponseEntity.notFound().build();
+        //Update comment to new comment
+        comment.get().setContent(updatedComment.getContent());
+        Comment newComment = commentRepository.save(comment.get());
+        return ResponseEntity.ok(newComment);
+    }
+    @DeleteMapping("/comments/{id}")
+    public ResponseEntity deleteComment(@PathVariable Long id){
+        if(!commentRepository.existsById(id)){
+            return ResponseEntity.notFound().build();
+        }
+        commentRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+    //#endregion
+
     @PostMapping("/decks")
     public ResponseEntity addDeck(Session session, @RequestBody Deck deck){
         deck.setAccount(session.getAccount());
@@ -104,6 +143,9 @@ public class ApiController {
         }
         return ResponseEntity.ok(account.getDecks());
     }
+
+    //Review
+
     @GetMapping("/view/decks")
     public String viewDecks(Model model){
         List<Deck> decks = deckRepository.getAllWithUsers();
