@@ -1,12 +1,12 @@
 <#import "macros.ftlh" as macros>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Profile</title>
-    <link rel="stylesheet" href="/static/navbar.css">
-    <link rel="stylesheet" href="/static/profile.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>My Profile</title>
+        <link rel="stylesheet" href="/static/navbar.css">
+        <link rel="stylesheet" href="/static/profile.css">
+    </head>
     <body>
         <@macros.header/>
         <nav id="navbar">

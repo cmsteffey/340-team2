@@ -119,13 +119,13 @@ public class ApiController {
     }
     @GetMapping("/view/calendar")
     public String viewMyCalendar(Session session, Model model){
-        model.addAttribute("appointments",
+        model.addAttribute("appointments", (List<Appointment>)(
                 session.getAccount().getRole() == AccountRole.COACH ?
                         appointmentRepository.getAppointmentsByCoach(session.getAccount()) :
                 session.getAccount().getRole() == AccountRole.CUSTOMER ?
                         appointmentRepository.getAppointmentsByCustomer(session.getAccount()) :
                         null
-                );
+                ));
         return "calendar";
     }
     @GetMapping("/view/profile")

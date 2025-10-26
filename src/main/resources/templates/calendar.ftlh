@@ -21,16 +21,11 @@
         <main>
             <h1 id="calendar-header"></h1>
             <div id="calendar">
+
             </div>
         </main>
         <script>
             let appointments = [
-            <#list appointments as appointment>
-                {
-                    month: ${appointment}
-                }
-                <#sep>,</#sep>
-            </#list>
             ];
             let calendar = document.getElementById('calendar');
             let now = new Date();
