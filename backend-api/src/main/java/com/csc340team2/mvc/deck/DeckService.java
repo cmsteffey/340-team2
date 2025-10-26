@@ -34,4 +34,8 @@ public class DeckService {
     public boolean deleteDeckById(Long id){
         return deckRepository.deleteDecksById(id) == 1;
     }
+
+    public Deck addDeck(Deck deck){
+        return deckRepository.save(deck);
+    }
 }

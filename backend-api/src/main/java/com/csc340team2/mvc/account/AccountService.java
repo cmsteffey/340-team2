@@ -16,4 +16,10 @@ public class AccountService {
     public List<Account> getAllAccounts(){
         return accountRepository.getAllBy();
     }
+    public Account addAccount(Account account){
+        return accountRepository.save(account);
+    }
+    public Optional<Account> getAccountById(Long id){
+        return accountRepository.findById(id);
+    }
 }
