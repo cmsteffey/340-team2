@@ -17,5 +17,8 @@ public class AppointmentService {
     public List<Appointment> getAppointmentsByCustomer(Account customer){
         return appointmentRepository.getAppointmentsByCustomer(customer);
     }
+    public Appointment saveAppointment(Appointment appointment){
+        return appointmentRepository.save(appointment);
+    }
 
 }
