@@ -2,6 +2,9 @@ package com.csc340team2.mvc.event;
 
 import java.time.LocalDateTime;
 
+import com.csc340team2.mvc.account.Account;
+import com.csc340team2.mvc.eventSubscription.EventSubscription;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +12,12 @@ import jakarta.persistence.*;
 public class Event {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private EventSubscription eventSubscription;
 
     @Column(nullable = false)
     private String title;
@@ -30,8 +37,11 @@ public class Event {
     @Column()
     private double eventCost;
 
-    @Column(nullable = false)
-    private Long eventHostId;
+    @ManyToOne
+    @JoinColumn(name = "eventHostId", nullable = false)
+    private Account eventHost;
+
+    private Long eventHostId = eventHost.getId();
 
     // Getters
     public long getId() { return id; }
@@ -42,6 +52,7 @@ public class Event {
     public String getEventAddress() { return eventAddress; }
     public double getEventCost() { return eventCost; }
     public Long getEventHostId() { return eventHostId; }
+    public EventSubscription getEventSubscription() { return eventSubscription; }
 
     // Setters
     public void setId(long id) { this.id = id; }
@@ -52,5 +63,6 @@ public class Event {
     public void setEventAddress(String eventAddress) { this.eventAddress = eventAddress; }
     public void setEventCost(double eventCost) { this.eventCost = eventCost; }
     public void setEventHostId(Long eventHostId) { this.eventHostId = eventHostId; }
+    public void setEventSubscription(EventSubscription eventSubscription) { this.eventSubscription = eventSubscription; }
 
 }

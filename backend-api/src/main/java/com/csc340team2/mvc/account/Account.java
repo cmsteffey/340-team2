@@ -12,6 +12,7 @@ import java.util.List;
 @Table(name = "account")
 @JsonIgnoreProperties(value = {"id"}, allowSetters = false, allowGetters = true)
 public class Account {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

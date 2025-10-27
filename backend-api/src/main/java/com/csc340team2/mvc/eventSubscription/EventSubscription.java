@@ -14,6 +14,7 @@ public class EventSubscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int eventId;
