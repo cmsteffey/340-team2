@@ -1,4 +1,4 @@
-﻿package com.csc340team2.mvc.appointment;
+package com.csc340team2.mvc.appointment;
 
 import com.csc340team2.mvc.account.AccountService;
 import com.csc340team2.mvc.session.Session;
