@@ -12,12 +12,9 @@ import com.csc340team2.mvc.user.Account;
 import com.csc340team2.mvc.user.AccountRepository;
 import com.csc340team2.mvc.deck.Deck;
 import com.csc340team2.mvc.deck.DeckRepository;
-<<<<<<< HEAD
 import com.csc340team2.mvc.review.ReviewRepository;
 import com.csc340team2.mvc.review.Review;
-=======
 import com.csc340team2.mvc.user.AccountRole;
->>>>>>> d8cfc7a (Update a bunch of stuff)
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +74,6 @@ public class ApiController {
         Optional<Session> session = sessionService.authenticateAndCreateSession(emailNode.asText(), passwordNode.asText());
         if(session.isEmpty())
             return ResponseEntity.status(404).contentType(MediaType.TEXT_PLAIN).body("Bad credentials");
-        return ResponseEntity.status(204).header("Set-Cookie", "session_guid=" + session.orElseThrow().getKey() + "; HttpOnly=true; Secure=true")
         return ResponseEntity.status(204).header("Set-Cookie", "session_guid=" + session.orElseThrow().getKey() + "; HttpOnly=true; Secure=true")
                 .header("Location", "/view/dashboard").build();
     }
