@@ -5,13 +5,15 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.csc340team2.mvc.account.Account;
 
+@Service
 public class CommentService {
     
     @Autowired
     private CommentRepository commentreRepository;
-    public Comment createReview(String content, Account customer)
+    public Comment createComment(String content, Account customer)
     {
         //convert currentTime to localDateTime
         Instant now = Instant.now();

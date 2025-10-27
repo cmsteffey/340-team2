@@ -2,21 +2,28 @@ package com.csc340team2.mvc.review;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import com.csc340team2.mvc.account.Account;
+import com.csc340team2.mvc.session.Session;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
+    private ReviewService reviewService;
 
-    @PostMapping("reviews/new")
-    public ResponseEntity<Review> createReview(@RequestBody Review review) {
-        Review savedReview = reviewRepository.save(review);
-        return ResponseEntity.ok(savedReview);
+    @PostMapping("/reviews")
+    public ResponseEntity createReview(Session session, @RequestBody Review request) {
+        
+        Account account = session.getAccount();
+
+        Review createdReview = reviewService.createReview(request.getContent(), account, request.getRating());
+        return ResponseEntity.ok(createdReview);
     }
 
     @GetMapping("/reviews")
