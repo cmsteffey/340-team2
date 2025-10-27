@@ -26,6 +26,10 @@ public class Session {
     @ManyToOne(optional = false, targetEntity = Account.class, cascade=CascadeType.PERSIST)
     private Account account;
 
+    public String getSetCookieHeader(){
+        return "session_guid=" + key + "; HttpOnly; Secure";
+    }
+
     public Long getId() {
         return id;
     }

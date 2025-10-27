@@ -27,10 +27,20 @@ public class SessionService {
             return Optional.empty();
         Session session = new Session();
         session.setAccount(account.orElseThrow());
-        session.setKey(UUID.randomUUID().toString());
+        session.setKey(generateSessionKey());
         return Optional.of(sessionRepository.save(session));
+    }
+    public Session createSessionForAccount(Account account){
+        Session session = new Session();
+        session.setAccount(account);
+        session.setKey(generateSessionKey());
+        return sessionRepository.save(session);
     }
     public Optional<Session> getSessionByKey(String key){
         return sessionRepository.findSessionByKey(key);
+    }
+
+    private String generateSessionKey(){
+        return UUID.randomUUID().toString();
     }
 }
