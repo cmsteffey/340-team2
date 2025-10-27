@@ -1,4 +1,4 @@
-﻿package com.csc340team2.mvc.post;
+package com.csc340team2.mvc.post;
 
 import com.csc340team2.mvc.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

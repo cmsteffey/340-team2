@@ -1,4 +1,4 @@
-﻿package com.csc340team2.mvc.account;
+package com.csc340team2.mvc.account;
 
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionService;

@@ -1,4 +1,4 @@
-﻿package com.csc340team2.mvc.account;
+package com.csc340team2.mvc.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

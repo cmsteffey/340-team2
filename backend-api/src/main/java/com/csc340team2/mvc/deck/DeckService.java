@@ -1,4 +1,4 @@
-﻿package com.csc340team2.mvc.deck;
+package com.csc340team2.mvc.deck;
 
 import com.csc340team2.mvc.account.Account;
 import org.springframework.beans.factory.annotation.Autowired;

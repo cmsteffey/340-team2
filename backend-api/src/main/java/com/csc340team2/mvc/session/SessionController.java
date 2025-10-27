@@ -1,4 +1,4 @@
-﻿package com.csc340team2.mvc.session;
+package com.csc340team2.mvc.session;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
