@@ -9,16 +9,13 @@ import com.csc340team2.mvc.session.Session;
 @RestController
 public class EventSubscriptionController {
     @Autowired
-    private EventSubscriptionRepository eventSubscriptionRepository;
-    @Autowired
     private EventSubscriptionService eventSubscriptionService;
 
-    @PostMapping("/event")
-    public ResponseEntity createEvent(Session session, @RequestBody EventSubscription request) {
-
-        EventSubscription createdEventSubscription = eventSubscriptionService.createEventSubscription();
+    @PostMapping("/eventSubscription")
+    public ResponseEntity createEventSubscription(@RequestBody EventSubscription request) {
         
-        eventSubscriptionRepository.save(createdEventSubscription);
+        EventSubscription createdEventSubscription = eventSubscriptionService.createEventSubscription(request.getAccountId());
+
         return ResponseEntity.ok(createdEventSubscription);
     }
 }

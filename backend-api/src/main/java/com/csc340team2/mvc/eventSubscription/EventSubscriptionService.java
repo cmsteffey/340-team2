@@ -12,7 +12,7 @@ public class EventSubscriptionService {
     @Autowired
     private EventSubscriptionRepository eventSubscriptionRepository;
 
-    public EventSubscription createEventSubscription()
+    public EventSubscription createEventSubscription(int accountId)
     {
         EventSubscription returnEventSubscription = new EventSubscription();
         
@@ -22,6 +22,7 @@ public class EventSubscriptionService {
         LocalDateTime localTime = LocalDateTime.ofInstant(now, zoneId);
 
         returnEventSubscription.setCreatedTime(localTime);
+        returnEventSubscription.setAccountId(accountId);
 
         eventSubscriptionRepository.save(returnEventSubscription);
         return returnEventSubscription;
