@@ -1,5 +1,6 @@
 package com.csc340team2.mvc.deck;
 import com.csc340team2.mvc.account.Account;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -9,18 +10,6 @@ import jakarta.persistence.*;
 
 @JsonIgnoreProperties(value = {"id"}, allowSetters = false, allowGetters = true)
 public class Deck {
-    public Deck(){
-
-    }
-    public Deck(Long id, String scryfallUrl, String nickname, Short colors, String coverCardUUID, Account account) {
-        this.id = id;
-        this.scryfallUrl = scryfallUrl;
-        this.nickname = nickname;
-        this.colors = colors;
-        this.coverCardUUID = coverCardUUID;
-        this.account = account;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -97,13 +86,15 @@ public class Deck {
         this.account = account;
     }
 
-    public String getColorsAsString(){
+    @JsonIgnore
+    public String getColorsAsString() {
         short colors = getColors();
+        if (colors == 0) return "";
         String string = (((colors & 16) == 16 ? "White, " : "") +
-               ((colors & 8) == 8 ? "Blue, " : "") +
-               ((colors & 4) == 4 ? "Black, " : "") +
-               ((colors & 2) == 2 ? "Red, " : "") +
-               ((colors & 1) == 1 ? "Green, " : ""));
+                ((colors & 8) == 8 ? "Blue, " : "") +
+                ((colors & 4) == 4 ? "Black, " : "") +
+                ((colors & 2) == 2 ? "Red, " : "") +
+                ((colors & 1) == 1 ? "Green, " : ""));
         return string.substring(0, string.length() - 2);
     }
 }

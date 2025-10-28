@@ -17,6 +17,8 @@ public class AccountService {
         return accountRepository.getAllBy();
     }
     public Account addAccount(Account account){
+        account.setId(null);
+        account.setPassHash(""); //TODO: Add actual password hashing and check the password in SessionService!
         return accountRepository.save(account);
     }
     public Optional<Account> getAccountById(Long id){
