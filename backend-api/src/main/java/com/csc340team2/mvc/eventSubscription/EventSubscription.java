@@ -1,35 +1,41 @@
 package com.csc340team2.mvc.eventSubscription;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
-import com.csc340team2.mvc.session.Session;
+import com.csc340team2.mvc.account.Account;
+import com.csc340team2.mvc.event.Event;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "eventSubscription")
+@Table(name = "event_subscription")
 public class EventSubscription {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @ManyToOne(targetEntity = Session.class)
-    @JoinColumn(name = "accountId", nullable = false)
-    private int accountId;
+    @ManyToOne(targetEntity = Account.class)
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account account;
 
-    @Column()
-    private LocalDateTime createdTime;
+    @ManyToOne(targetEntity = Event.class)
+    @JoinColumn(name = "event_id", nullable = false)
+    private Event event;
+
+    @Column(nullable = false)
+    private Instant createdTime;
 
     // Getters
     public long getId() { return id; }
-    public int getAccountId() { return accountId; }
-    public LocalDateTime getCreatedTime() { return createdTime; }
+    public Account getAccount() { return account; }
+    public Instant getCreatedTime() { return createdTime; }
+    public Event getEvent() { return event; }
 
     // Setters
     public void setId(long id) { this.id = id; }
-    public void setAccountId(int accountId) { this.accountId = accountId; }
-    public void setCreatedTime(LocalDateTime createdTime) { this.createdTime = createdTime; }
-
+    public void setAccount(Account account) { this.account = account; }
+    public void setCreatedTime(Instant createdTime) { this.createdTime = createdTime; }
+    public void setEvent(Event event) { this.event = event; }
 
 }

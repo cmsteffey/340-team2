@@ -1,9 +1,12 @@
 package com.csc340team2.mvc.event;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.eventSubscription.EventSubscription;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -12,12 +15,13 @@ import jakarta.persistence.*;
 public class Event {
     
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
-    private EventSubscription eventSubscription;
+    // @OneToMany(targetEntity = EventSubscription.class)
+    // @JoinColumn(name = "event_id")
+    // @JsonIgnoreProperties("event")
+    // private List<EventSubscription> eventSubscriptions = new ArrayList<EventSubscription>();
 
     @Column(nullable = false)
     private String title;
@@ -37,12 +41,10 @@ public class Event {
     @Column()
     private double eventCost;
 
-    @ManyToOne
-    @JoinColumn(name = "eventHostId", nullable = false)
+    @ManyToOne(targetEntity = Account.class)
+    @JoinColumn(name = "event_host_id", nullable = false)
     private Account eventHost;
-
-    private Long eventHostId = eventHost.getId();
-
+    
     // Getters
     public long getId() { return id; }
     public String getTitle() { return title; }
@@ -51,8 +53,8 @@ public class Event {
     public int getEventDuration() { return eventDuration; }
     public String getEventAddress() { return eventAddress; }
     public double getEventCost() { return eventCost; }
-    public Long getEventHostId() { return eventHostId; }
-    public EventSubscription getEventSubscription() { return eventSubscription; }
+    public Account getEventHost() { return eventHost; }
+    //public List<EventSubscription> getEventSubscriptions() { return eventSubscriptions; }
 
     // Setters
     public void setId(long id) { this.id = id; }
@@ -62,7 +64,7 @@ public class Event {
     public void setEventDuration(int eventDuration) { this.eventDuration = eventDuration; }
     public void setEventAddress(String eventAddress) { this.eventAddress = eventAddress; }
     public void setEventCost(double eventCost) { this.eventCost = eventCost; }
-    public void setEventHostId(Long eventHostId) { this.eventHostId = eventHostId; }
-    public void setEventSubscription(EventSubscription eventSubscription) { this.eventSubscription = eventSubscription; }
+    public void setEventHost(Account eventHost) { this.eventHost = eventHost; }
+    //public void setEventSubscriptions(List<EventSubscription> eventSubscriptions) { this.eventSubscriptions = eventSubscriptions; }
 
 }

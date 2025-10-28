@@ -3,6 +3,8 @@ package com.csc340team2.mvc.review;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
     
-    public Review createReview(String content, Account customer, int rating)
+    public Review createReview(String content, Account customer, Account coach, int rating)
     {
         //convert currentTime to localDateTime
         Instant now = Instant.now();
@@ -26,8 +28,20 @@ public class ReviewService {
         returnReview.setContent(content);
         returnReview.setCustomer(customer);
         returnReview.setRating(rating);
+        returnReview.setCoach(coach);
 
-        reviewRepository.save(returnReview);
-        return returnReview;
+        return reviewRepository.save(returnReview);
+    }
+
+    public Optional<Review> findById(Long id){
+        return reviewRepository.findById(id);
+    }
+
+    public Review updateReview(Review review){
+        return reviewRepository.save(review);
+    }
+
+    public List<Review> getReviewsByCoach(Account coach){
+        return reviewRepository.getReviewsByCoach(coach);
     }
 }

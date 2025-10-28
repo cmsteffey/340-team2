@@ -18,6 +18,10 @@ public class AccountController {
         Session createdSession = sessionService.createSessionForAccount(account);
         return ResponseEntity.status(200).header("Set-Cookie", createdSession.getSetCookieHeader()).body(saved);
     }
+    @GetMapping("/account/myAccount")
+    public ResponseEntity getMyAccount(Session session){
+        return ResponseEntity.ok(session.getAccount());
+    }
     @GetMapping("/accounts/{id}")
     public ResponseEntity getAccount(@PathVariable Long id) {
         return ResponseEntity.ok(accountService.getAccountById(id));

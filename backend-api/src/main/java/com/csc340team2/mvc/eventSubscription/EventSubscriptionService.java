@@ -3,28 +3,35 @@ package com.csc340team2.mvc.eventSubscription;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.csc340team2.mvc.account.Account;
+import com.csc340team2.mvc.event.Event;
 
 @Service
 public class EventSubscriptionService {
     @Autowired
     private EventSubscriptionRepository eventSubscriptionRepository;
 
-    public EventSubscription createEventSubscription(int accountId)
+    public EventSubscription createEventSubscription(Event event, Account account)
     {
         EventSubscription returnEventSubscription = new EventSubscription();
-        
-        //convert currentTime to localDateTime
-        Instant now = Instant.now();
-        ZoneId zoneId = ZoneId.systemDefault();
-        LocalDateTime localTime = LocalDateTime.ofInstant(now, zoneId);
 
-        returnEventSubscription.setCreatedTime(localTime);
-        returnEventSubscription.setAccountId(accountId);
+        returnEventSubscription.setCreatedTime(Instant.now());
+        returnEventSubscription.setAccount(account);
+        returnEventSubscription.setEvent(event);
 
-        eventSubscriptionRepository.save(returnEventSubscription);
-        return returnEventSubscription;
+        return eventSubscriptionRepository.save(returnEventSubscription);
+    }
+
+    public List<EventSubscription> getEventsByEvent(Event event)
+    {
+        return eventSubscriptionRepository.getByEvent(event);
+    }
+    public List<EventSubscription> getEventsByAccount(Account account)
+    {
+        return eventSubscriptionRepository.getByAccount(account);
     }
 }

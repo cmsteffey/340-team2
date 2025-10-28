@@ -1,18 +1,23 @@
 package com.csc340team2.mvc.account;
 
 import com.csc340team2.mvc.deck.Deck;
+import com.csc340team2.mvc.review.ReviewController;
 import com.csc340team2.mvc.session.Session;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 import org.apache.logging.log4j.util.Lazy;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @Entity
 @Table(name = "account")
-@JsonIgnoreProperties(value = {"id"}, allowSetters = false, allowGetters = true)
+@JsonIgnoreProperties(value = {"id"}, allowSetters = true, allowGetters = true)
 public class Account {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
