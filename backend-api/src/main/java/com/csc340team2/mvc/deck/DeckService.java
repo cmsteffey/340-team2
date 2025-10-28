@@ -36,6 +36,7 @@ public class DeckService {
     }
 
     public Deck addDeck(Deck deck){
+        deck.setId(null);
         return deckRepository.save(deck);
     }
 }

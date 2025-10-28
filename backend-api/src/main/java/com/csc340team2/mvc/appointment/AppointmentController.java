@@ -1,5 +1,6 @@
 package com.csc340team2.mvc.appointment;
 
+import com.csc340team2.mvc.account.AccountRole;
 import com.csc340team2.mvc.account.AccountService;
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.account.Account;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,7 +28,11 @@ public class AppointmentController {
 
     @GetMapping("/appointments")
     public ResponseEntity getAppointments(Session session){
-        return ResponseEntity.ok(appointmentService.getAppointmentsByCoach(session.getAccount()));
+        return session.getAccount().getRole() == AccountRole.COACH ?
+                ResponseEntity.ok(appointmentService.getAppointmentsByCoach(session.getAccount())) :
+                session.getAccount().getRole() == AccountRole.CUSTOMER ?
+                ResponseEntity.ok(appointmentService.getAppointmentsByCustomer(session.getAccount())) :
+                ResponseEntity.ok(new ArrayList<Appointment>());
     }
     @PostMapping("/appointments")
     public ResponseEntity scheduleAppointment(Session session, @RequestBody JsonNode body){

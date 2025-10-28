@@ -3,7 +3,7 @@ package com.csc340team2.mvc.account;
 import com.csc340team2.mvc.deck.Deck;
 import com.csc340team2.mvc.review.ReviewController;
 import com.csc340team2.mvc.session.Session;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -34,6 +34,7 @@ public class Account {
     @Column(nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String passHash;
 
