@@ -1,11 +1,13 @@
 package com.csc340team2.mvc.post;
 
 import com.csc340team2.mvc.account.Account;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -22,6 +24,10 @@ public class PostService {
         post.setCreatedAt(now);
         postRepository.save(post);
         return post;
+    }
+
+    public Optional<Post> getPostById(Long id){
+        return postRepository.findById(id);
     }
 
     public List<Post> getAllPostsMadeBy(Account author){
