@@ -1,12 +1,8 @@
 package com.csc340team2.mvc.event;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
 
 import com.csc340team2.mvc.account.Account;
-import com.csc340team2.mvc.eventSubscription.EventSubscription;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -30,7 +26,7 @@ public class Event {
     private String description;
 
     @Column()
-    private LocalDateTime startTime;
+    private Instant startTime;
 
     @Column()
     private int eventDuration;
@@ -49,7 +45,7 @@ public class Event {
     public long getId() { return id; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }
-    public LocalDateTime getStartTime() { return startTime; }
+    public Instant getStartTime() { return startTime; }
     public int getEventDuration() { return eventDuration; }
     public String getEventAddress() { return eventAddress; }
     public double getEventCost() { return eventCost; }
@@ -60,7 +56,7 @@ public class Event {
     public void setId(long id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }
     public void setDescription(String description) { this.description = description; }
-    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
+    public void setStartTime(Instant startTime) { this.startTime = startTime; }
     public void setEventDuration(int eventDuration) { this.eventDuration = eventDuration; }
     public void setEventAddress(String eventAddress) { this.eventAddress = eventAddress; }
     public void setEventCost(double eventCost) { this.eventCost = eventCost; }

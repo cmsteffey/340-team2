@@ -1,6 +1,6 @@
 package com.csc340team2.mvc.event;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
     
-    public Event createEvent(Account eventHost, String _title, String _description, LocalDateTime _startTime, int _eventDuration, String _eventAddress, double _eventCost)
+    public Event createEvent(Account eventHost, String _title, String _description, Instant _startTime, int _eventDuration, String _eventAddress, double _eventCost)
     {
         Event returnEvent = new Event();
         returnEvent.setEventHost(eventHost);

@@ -49,7 +49,7 @@ public class AppointmentController {
         if(withOptional.isEmpty())
             return ResponseEntity.status(404).contentType(MediaType.TEXT_PLAIN).body("Coach account not found");
         Appointment appt = new Appointment();
-        appt.setTime(Date.from(Instant.ofEpochMilli(timeNode.asLong())));
+        appt.setTime(Instant.ofEpochMilli(timeNode.asLong()));
         appt.setCustomer(session.getAccount());
         appt.setCoach(withOptional.orElseThrow());
         return ResponseEntity.status(200).body(appointmentService.saveAppointment(appt));

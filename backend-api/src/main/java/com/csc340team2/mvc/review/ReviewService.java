@@ -18,13 +18,8 @@ public class ReviewService {
     
     public Review createReview(String content, Account customer, Account coach, int rating)
     {
-        //convert currentTime to localDateTime
-        Instant now = Instant.now();
-        ZoneId zoneId = ZoneId.systemDefault();
-        LocalDateTime localTime = LocalDateTime.ofInstant(now, zoneId);
-
         Review returnReview = new Review();
-        returnReview.setPostTime(localTime);
+        returnReview.setPostTime(Instant.now());
         returnReview.setContent(content);
         returnReview.setCustomer(customer);
         returnReview.setRating(rating);
