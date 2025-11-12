@@ -1,0 +1,103 @@
+:root {
+    --purple-appointment-background: violet;
+    --purple-appointment-border: purple;
+    --green-appointment-background: palegreen;
+    --green-appointment-border: forestgreen;
+    --blue-appointment-background: lightskyblue;
+    --blue-appointment-border: mediumblue;
+    --red-appointment-background: pink;
+    --red-appointment-border: red;
+    --day-border-color: hsl(from #3769c6 h s calc(l * 1.2));
+    --current-day-border-color: hsl(from green h s calc(l * 1.2));
+}
+main {
+    height: calc(100% - var(--top-bar-height));
+}
+main > h1 {
+    height: 40px;
+    margin: 0;
+    color: white;
+}
+.current:not(.col7) + .day-box:not(.current) {
+    border-left: 2px solid var(--current-day-border-color);
+}
+.current:not(.row6) + div + div + div + div + div + div + div {
+    border-top: 2px solid var(--current-day-border-color);
+}
+.day-box {
+    box-sizing: border-box;
+}
+.day-box:not(.current) {
+    border-left: 2px solid var(--day-border-color);
+    border-top: 2px solid var(--day-border-color);
+}
+.day-box.current {
+    border-left: 2px solid var(--current-day-border-color);
+    border-top: 2px solid var(--current-day-border-color);
+}
+.day-box > h2 {
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 0;
+    color: white;
+}
+.row6:not(.current) {
+    border-bottom: 2px solid var(--day-border-color);
+}
+.col7:not(.current) {
+    border-right: 2px solid var(--day-border-color);
+}
+.row6.current {
+    border-bottom: 2px solid var(--current-day-border-color);
+}
+.col7.current {
+    border-right: 2px solid var(--current-day-border-color);
+}
+#calendar {
+    width: calc(100% - var(--navbar-gap));
+    height: calc(100% - 40px - var(--navbar-gap) - 2em);
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: calc(1.5em + 10px) 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.green-appointment {
+    border: 1px solid var(--green-appointment-border);
+    background-color: var(--green-appointment-background);
+}
+.blue-appointment {
+    border: 1px solid var(--blue-appointment-border);
+    background-color: var(--blue-appointment-background);
+}
+.red-appointment {
+    border: 1px solid var(--red-appointment-border);
+    background-color: var(--red-appointment-background);
+}
+.purple-appointment {
+    border: 1px solid var(--purple-appointment-border);
+    background-color: var(--purple-appointment-background);
+}
+.appointment {
+    padding: 2px;
+    border-radius: 5px;
+}
+.wrong-month {
+    background-color: #FFFFFF11;
+}
+.wrong-month > h2{
+    color: #888;
+}
+.wrong-month > .appointment {
+    color: #888;
+}
+.wrong-month > .purple-appointment{
+    background-color: hsl(from var(--purple-appointment-background) h s calc(l * 1.15));
+}
+.wrong-month > .green-appointment{
+    background-color: hsl(from var(--green-appointment-background) h s calc(l * 1.15));
+}
+.wrong-month > .blue-appointment{
+    background-color: hsl(from var(--blue-appointment-background) h s calc(l * 1.15));
+}
+.wrong-month > .red-appointment{
+    background-color: hsl(from var(--red-appointment-background) h s calc(l * 1.15));
+}
