@@ -1,0 +1,52 @@
+main > h1 {
+    height: 40px;
+    margin: 0;
+    color: white;
+}
+
+.dashbox-container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 30px;
+}
+.dashbox {
+    padding: 4px;
+    border: 1px solid var(--dashbox-border);
+    border-radius: 4px;
+    height: 208px;
+    width: 308px;
+    position: relative;
+    /*box-shadow: 4px 2px 4px hsl(from var(--dashbox-border) h s calc(l*0.7));*/
+    background-color: var(--dashbox-background);
+    color: var(--text-main);
+}
+.dashbox-title {
+    font-size: 25px;
+    height: 25px;
+    width: max-content;
+    margin: 0 0 0 5px;
+    position: absolute;
+    top: 0;
+}
+.dashbox-content {
+    font-size: 16px;
+    bottom: 0;
+    position: absolute;
+    height: 170px;
+    margin: auto;
+}
+.dashbox-content:not(img) {
+    width: calc(100% - 8px);
+}
+img.dashbox-content {
+    aspect-ratio: 1 / 1;
+}
+.pieSvg > circle{
+    fill: hsl(from var(--dashbox-background) h s calc(l * 0.7));
+}
+.pieSvg > .inner-circle {
+    stroke: hsl(from var(--dashbox-background) h s calc(l * 0.5));
+    transform: rotate(-90deg);
+    transform-origin: center;
+    transform-box: fill-box;
+}

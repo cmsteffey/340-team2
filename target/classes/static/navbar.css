@@ -1,0 +1,77 @@
+:root {
+    --top-bar-height: 50px;
+    --navbar-width: 0px;
+    --navbar-gap: 0px;
+    --background: #0d1117;
+    --header-background: #0f2537;
+    --dashbox-background: #1e2a36;
+    --dashbox-border: #00b8d9;
+    --text-main: #c9d1d9;
+    --text-subtle: #8b949e;
+}
+*{ font-family: Inter, sans-serif; }
+main {
+    right: 0;
+    position: absolute;
+    top: var(--top-bar-height);
+    height: max-content;
+    width: calc(100% - var(--navbar-width) - var(--navbar-gap) - 40px);
+    padding: 20px;
+}
+.header {
+    position: fixed;
+    width: 100%;
+    height: var(--top-bar-height);
+    background: var(--header-background);
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.header > a:hover {
+    background-color: hsl(from var(--header-background) h s calc(l*0.8));
+    transition: background-color 50ms ease-in-out;
+}
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: var(--background);/*hsl(from var(--dash-hue) h s calc(l * 0.9))*/
+}
+@media (max-device-aspect-ratio: 1) {
+    #navbar {
+        display: none !important;
+    }
+    #navpopover {
+        display: inline !important;
+    }
+}
+
+.header > a {
+    text-align: center;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 20px;
+}
+a.login-link {
+    color: var(--text-main);
+    right: 10px;
+    position: absolute;
+    height: var(--top-bar-height);
+    font-size: calc(0.6*var(--top-bar-height));
+    top: 0;
+    text-decoration: none;
+    margin-left: auto;
+    align-content: center;
+}
+
+.icon {
+    padding-left: 20px;
+    align-self: center;
+    justify-self: start;
+}

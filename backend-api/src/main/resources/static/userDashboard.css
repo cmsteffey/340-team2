@@ -1,0 +1,219 @@
+main {
+    right: 0;
+    position: absolute;
+    top: var(--top-bar-height);
+    height: max-content;
+    width: calc(100% - var(--navbar-width) - var(--navbar-gap));
+}
+
+body {
+    background: rgb(61, 59, 48);
+}
+
+p {
+    color: black;
+}
+
+h3 {
+    color: black;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: repeat(22, 50px);
+    grid-template-columns: repeat(13, 1fr);
+    gap: 1em, 3em;
+    align-items: stretch;
+    justify-items: stretch;
+}
+
+
+
+.eventBox {
+    background: rgb(77, 80, 97);
+    border-radius: 15px;
+    grid-column: 10 / 13;
+    grid-row: 12 / 22;
+    display: flex;
+    padding: 25px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    gap: 20px;
+}
+.event {
+    font-size: 20px;
+    color: black;
+    display: flex;
+    justify-content: left;
+    padding-left: 10px;
+    align-items: center;
+    background: rgb(92, 128, 188);
+    border-radius: 10px;
+    gap: 15px;
+    width: 90%;
+    height: 100px;
+}
+.dateBox {
+    display: flex;
+    font-size: 50px;
+    justify-content: center;
+    align-items: center;
+    background: rgb(122, 158, 166);
+    border-radius: 5px;
+    min-width: 75px;
+    width: 30%;
+    height: 90%;
+}
+/*
+.signupIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(65, 121, 79);
+    border-radius: 10px;
+    width: 70%;
+    height: 200px;
+}
+.signupButton{
+    background: rgb(65, 121, 79);
+    overflow-wrap: break-word;
+    padding: 20px;
+    border-radius: 10px;
+    
+}*/
+
+
+
+
+
+.searchBox {
+    background: rgb(77, 80, 97);
+    border-radius: 15px;
+    grid-column: 2 / 9;
+    grid-row: 12 / 22;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    align-content: center;
+    justify-content: top;
+    gap: 20px;
+}
+.searchBoxHeader {
+    background: rgb(92, 128, 188);
+    border-radius: 7px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.searchHeaderBar {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-radius: 7px;
+    height: 35px;
+    width: 100%;
+}
+.searchHeaderButton {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-Radius: 7px;
+    height: 35px;
+    width: 35px;
+}
+.searchHeaderFilters {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-radius: 7px;
+    height: 35px;
+    width: 35px;
+}
+input[type="text"] {
+    color: black;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: rgb(122, 158, 166);
+    border: 0px;
+    font-size: 20px;
+}
+
+
+.searchResultsBox {
+    background-color: rgb(92, 128, 188);
+    display: flex;
+    flex-direction: column;
+    border-radius: 7px;
+    padding: 20px;
+    gap: 10px;
+}
+.searchCategories,
+.searchResult {
+    color: black;
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 5fr;
+    align-items: center;
+    background-color: rgb(122, 158, 166);
+    border-radius: 7px;
+    padding: 12px;
+}
+.searchCategories{
+    font-weight: bold;
+}
+
+
+
+
+.featuredBox {
+    background: rgb(77, 80, 97);
+    border-radius: 15px;
+    grid-column: 2 / 13;
+    grid-row: 2 / 10;
+    display: flex;
+    padding: 25px;
+    gap: clamp(10px, 5vw, 75px);
+    justify-content: center;
+}
+.featuredCoachBox {
+    background: rgb(92, 128, 188);
+    border-radius: 10px;
+    width: 250px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.featuredCoachContentBox {
+    font-size: 20px;
+    text-align: center;
+    overflow: hidden;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background: rgb(122, 158, 166);
+    border-radius: 7px;
+    padding: 10px;
+    width: 230px;
+}
+.featuredCoachContentBox img{
+    aspect-ratio: 3 / 4;
+    gap: 10px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block
+}
+.featuredCoachContentBox h3{
+    margin-top: 0;
+    margin-bottom: 0;
+}

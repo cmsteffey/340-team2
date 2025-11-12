@@ -6,21 +6,17 @@ import com.csc340team2.mvc.appointment.AppointmentService;
 import com.csc340team2.mvc.deck.DeckService;
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionService;
-import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.deck.Deck;
 import com.csc340team2.mvc.account.AccountRole;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.time.Instant;
@@ -29,8 +25,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalField;
 import java.util.*;
 
 @Controller
@@ -107,7 +101,9 @@ public class ApiController {
     @GetMapping({"/view/dashboard", "/"})
     public String viewDashboard(Session currentSession, Model model){
         model.addAttribute("pct", Math.abs(new Random().nextInt()) % 100);
-        return "dashboard";
+
+        if(currentSession.getAccount().getRole() == AccountRole.COACH){ return "dashboard"; }
+        else { return "userDashboard"; }
     }
     @GetMapping("/static/{fileName}")
     public ResponseEntity getStaticFile(@PathVariable String fileName){
