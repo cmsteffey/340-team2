@@ -2,8 +2,8 @@
 <html lang="en">
 
     <head>
-        <link rel="stylesheet" href="/navbar.css">
-        <link rel="stylesheet" href="/userDashboard.css">
+        <link rel="stylesheet" href="/static/navbar.css">
+        <link rel="stylesheet" href="/static/userDashboard.css">
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
     </head>
     <body>
         <div class="header">
-            <a id="login-link" href="../login.html">Log In</a>
+            <a id="login-link" href="../view/login">Log In</a>
             <div class="icon">
                 <img id="logo" src="/Logo.png" width="150px">
             </div>
