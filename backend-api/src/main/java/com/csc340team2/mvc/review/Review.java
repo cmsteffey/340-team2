@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "review")
@@ -19,7 +19,7 @@ public class Review {
     private int rating;
 
     @Column()
-    private LocalDateTime postTime;
+    private Instant postTime;
 
     @Column(nullable = false)
     private String content;
@@ -35,19 +35,19 @@ public class Review {
 
     //Constructor
     public Review(){
-        this.postTime = LocalDateTime.now(); 
+        this.postTime = Instant.now();
         this.rating = 0;
     }
 
     //Getters
-    public LocalDateTime getPostTime(){ return postTime; }
+    public Instant getPostTime(){ return postTime; }
     public String getContent() { return content; }
     public Account getCustomer() { return customer; }
     public int getRating() { return rating; }
     public Account getCoach() { return coach; }
 
     //Setters
-    public void setPostTime(LocalDateTime postTime){ this.postTime = postTime; }
+    public void setPostTime(Instant postTime){ this.postTime = postTime; }
     public void setContent(String content){ this.content = content; }
     public void setCustomer(Account customer){ this.customer = customer; }
     public void setRating(int rating){ this.rating = rating; }

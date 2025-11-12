@@ -2,6 +2,8 @@ package com.csc340team2.mvc.appointment;
 
 import com.csc340team2.mvc.account.Account;
 import jakarta.persistence.*;
+
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -12,7 +14,7 @@ public class Appointment {
     private Long id;
 
     @Column(nullable = false)
-    private Date time;
+    private Instant time;
 
     @Column(nullable = false)
     private int length;
@@ -33,11 +35,11 @@ public class Appointment {
         this.id = id;
     }
 
-    public Date getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

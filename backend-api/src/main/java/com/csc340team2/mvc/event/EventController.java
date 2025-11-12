@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.csc340team2.mvc.account.Account;
-import com.csc340team2.mvc.eventSubscription.EventSubscription;
-import com.csc340team2.mvc.review.ReviewController;
 import com.csc340team2.mvc.session.Session;
 
 @RestController
