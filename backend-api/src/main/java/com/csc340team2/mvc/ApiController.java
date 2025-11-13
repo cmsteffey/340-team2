@@ -1,5 +1,6 @@
 package com.csc340team2.mvc;
 
+import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.account.AccountService;
 import com.csc340team2.mvc.appointment.Appointment;
 import com.csc340team2.mvc.appointment.AppointmentService;
@@ -102,8 +103,13 @@ public class ApiController {
     public String viewDashboard(Session currentSession, Model model){
         model.addAttribute("pct", Math.abs(new Random().nextInt()) % 100);
 
-        if(currentSession.getAccount().getRole() == AccountRole.COACH){ return "dashboard"; }
-        else { return "userDashboard"; }
+        //Used in dashboard to filter out coaches
+        List<Account> accountList = accountService.getAllAccounts();
+        Collections.shuffle(accountList);
+        model.addAttribute("accounts", accountList);
+
+        //Filter out user and coach
+        return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";
     }
     @GetMapping("/static/{fileName}")
     public ResponseEntity getStaticFile(@PathVariable String fileName){

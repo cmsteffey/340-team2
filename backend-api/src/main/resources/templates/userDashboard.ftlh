@@ -1,3 +1,4 @@
+<#import "macros.ftlh" as macros>
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -14,29 +15,31 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"> 
     </head>
     <body>
+        <@macros.header/>
         <div class="header">
-            <a id="login-link" href="../view/login">Log In</a>
             <div class="icon">
                 <img id="logo" src="/Logo.png" width="150px">
             </div>
+            <a id="login-link" href="../view/login">Log In</a>
+            <a id="dashboard-link" href="../view/dashboard">Dashboard</a>
+            <a id="decks-link" href="../view/decks">Decks</a>
         </div>
-        <nav id="navbar">
-            <a href="dashboard.html">Dashboard</a>
-            <a href="decks.html">Decks</a>
-        </nav>
 
         <main>
         <div class="container">
             <div class="featuredBox">
-                <div class="featuredCoachBox">
-                    <div class="featuredCoachContentBox">
-                        <img id="coach1" src="../Guy.png" height="160px"/>
-                    </div>
-                    <div class="featuredCoachContentBox">
-                        <h3>Ali</h3>
-                        <p>This guy is like really cool and you should probably spend a bunch of money on him!</p>
-                    </div>
-                </div>
+                <#list accounts as account>
+                    <#if (account.role?string == "COACH")>
+                        <div class="featuredCoachBox">
+                            <div class="featuredCoachContentBox">
+                                <img id="coach1" src="../static/Guy.png" height="160px"/>
+                            </div>
+                            <div class="featuredCoachContentBox">
+                                <h3>${account.username}</h3>
+                            </div>
+                        </div>
+                    </#if>
+                </#list>
             </div>
 
             <div class="searchBox">
