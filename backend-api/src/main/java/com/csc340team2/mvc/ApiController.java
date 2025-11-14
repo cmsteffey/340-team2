@@ -5,6 +5,10 @@ import com.csc340team2.mvc.account.AccountService;
 import com.csc340team2.mvc.appointment.Appointment;
 import com.csc340team2.mvc.appointment.AppointmentService;
 import com.csc340team2.mvc.deck.DeckService;
+import com.csc340team2.mvc.postSubscription.PostSubscriptionService;
+import com.csc340team2.mvc.postSubscription.PostSubscription;
+import com.csc340team2.mvc.post.PostService;
+import com.csc340team2.mvc.post.Post;
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionService;
 import com.csc340team2.mvc.deck.Deck;
@@ -38,6 +42,10 @@ public class ApiController {
     private SessionService sessionService;
     @Autowired
     private AppointmentService appointmentService;
+    @Autowired
+    private PostSubscriptionService postSubscriptionService;
+    @Autowired
+    private PostService postService;
 
 
     @GetMapping("/view/decks")
@@ -107,6 +115,13 @@ public class ApiController {
         List<Account> accountList = accountService.getAllAccounts();
         Collections.shuffle(accountList);
         model.addAttribute("accounts", accountList);
+
+        //Yoinkify the subscriptions made by current user
+        List<PostSubscription> subscriptions = postSubscriptionService.getSubscriptionByUser(currentSession.getAccount());
+
+        //
+        model.addAttribute("coachPosts", postSubscriptionService.getSubscribedPosts(currentSession.getAccount().getId()));
+        LoggerFactory.getLogger(ApiController.class).debug("List {}", model.getAttribute("coachPosts"));
 
         //Filter out user and coach
         return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";

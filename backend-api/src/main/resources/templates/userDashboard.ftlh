@@ -16,14 +16,6 @@
     </head>
     <body>
         <@macros.header/>
-        <div class="header">
-            <div class="icon">
-                <img id="logo" src="/Logo.png" width="150px">
-            </div>
-            <a id="login-link" href="../view/login">Log In</a>
-            <a id="dashboard-link" href="../view/dashboard">Dashboard</a>
-            <a id="decks-link" href="../view/decks">Decks</a>
-        </div>
 
         <main>
         <div class="container">
@@ -42,21 +34,18 @@
                 </#list>
             </div>
 
-            <div class="searchBox">
-                <div class="searchBoxHeader">
-                    <div class="searchHeaderBar">
-                        <form>
-                            <input type="text" id="coachSearchBar" placeholder="Search..." onkeyup="filterCoaches()">
-                        </form>
+            <div class="postBox">
+                <div class="postBoxHeader">
+                    <div class="postHeaderBar">
+                        <div class="searchCategories">
+                            <span>Name</span>
+                            <span>Post Time</span>
+                            <span>Content</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="searchResultsBox">
-                    <div class="searchCategories">
-                        <span>Name</span>
-                        <span>Age</span>
-                        <span>Preferred Style</span>
-                    </div>
                     <div class="searchResult">
                         <span>Ali</span>
                         <span>24</span>
