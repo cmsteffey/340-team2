@@ -46,11 +46,13 @@
                 </div>
 
                 <div class="searchResultsBox">
-                    <div class="searchResult">
-                        <span>Ali</span>
-                        <span>24</span>
-                        <span>Control</span>
-                    </div>
+                    <#list coachPosts as post>
+                        <div class="searchResult">
+                            <span>${post.getAuthor().getFirstName()}</span>
+                            <span>${post.title}</span>
+                            <span>${post.createdAt}</span>
+                        </div>
+                    </#list>
                 </div>
             </div>
 

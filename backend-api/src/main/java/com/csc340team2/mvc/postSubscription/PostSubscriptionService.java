@@ -2,13 +2,10 @@ package com.csc340team2.mvc.postSubscription;
 
 import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.post.Post;
-import com.csc340team2.mvc.post.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PostSubscriptionService {

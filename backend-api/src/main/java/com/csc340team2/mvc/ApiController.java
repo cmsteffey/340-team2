@@ -116,10 +116,6 @@ public class ApiController {
         Collections.shuffle(accountList);
         model.addAttribute("accounts", accountList);
 
-        //Yoinkify the subscriptions made by current user
-        List<PostSubscription> subscriptions = postSubscriptionService.getSubscriptionByUser(currentSession.getAccount());
-
-        //
         model.addAttribute("coachPosts", postSubscriptionService.getSubscribedPosts(currentSession.getAccount().getId()));
         LoggerFactory.getLogger(ApiController.class).debug("List {}", model.getAttribute("coachPosts"));
 
