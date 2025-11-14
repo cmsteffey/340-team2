@@ -104,6 +104,10 @@ public class ApiController {
     public String viewLogin(){
         return "login";
     }
+    @GetMapping("/view/register")
+    public String viewRegistration() {
+        return "register";
+    }
     @GetMapping({"/view/dashboard", "/"})
     public String viewDashboard(Session currentSession, Model model){
         model.addAttribute("pct", Math.abs(new Random().nextInt()) % 100);

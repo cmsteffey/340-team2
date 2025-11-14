@@ -2,6 +2,7 @@ package com.csc340team2.mvc.account;
 
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,13 @@ public class AccountController {
     @Autowired
     private SessionService sessionService;
     @PostMapping("/registration")
-    public ResponseEntity registerAccount(@RequestBody Account account){
+    public ResponseEntity registerAccount(@ModelAttribute Account account){
+        if(account.getRole() == null){
+            return ResponseEntity.badRequest().build();
+        }
         Account saved = accountService.addAccount(account);
-        Session createdSession = sessionService.createSessionForAccount(account);
-        return ResponseEntity.status(200).header("Set-Cookie", createdSession.getSetCookieHeader()).body(saved);
+        Session createdSession = sessionService.createSessionForAccount(saved);
+        return ResponseEntity.status(303).header("Set-Cookie", createdSession.getSetCookieHeader()).header("Location", "/").build();
     }
     @GetMapping("/account/myAccount")
     public ResponseEntity getMyAccount(Session session){
