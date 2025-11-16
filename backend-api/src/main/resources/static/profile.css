@@ -1,18 +1,40 @@
-main > h1 {
+main h1, div[popover] h1 {
     height: 40px;
     margin: 0;
-    color: white;
+    color: var(--text-main);
 }
-main h2 {
-    color: white;
+main h2, div[popover] h2{
+    color: var(--text-main);
 }
-main p {
-    color: white;
+main p, div[popover] p {
+    color: var(--text-main);
+}
+div[popover] {
+    background-color: var(--background);
+    border: 1px var(--text-main) solid;
+    padding: 20px;
+}
+div[popover] input[type="file"]{
+    background-color: transparent;
+    color: var(--text-main);
+}
+
+#image-update-form-button, #description-form-button {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+#description-form-button {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
 }
 #profile-image {
     border-radius: 50%;
     width: 300px;
     aspect-ratio: 1/1;
+    object-fit: cover;
 }
 #about {
     display:flex;
@@ -30,9 +52,15 @@ main p {
     font-family: "Arial"
 }
 input, textarea {
-    background-color: rgb(153, 191, 192)
+    background-color: var(--theme-1)
 }
 #posts > div {
     border: 1px solid white;
     padding-left: 10px;
+}
+#description {
+    color: var(--text-main)
+}
+#description.empty-description {
+    color: var(--text-subtle)
 }

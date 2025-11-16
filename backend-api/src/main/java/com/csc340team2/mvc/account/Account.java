@@ -1,15 +1,12 @@
 package com.csc340team2.mvc.account;
 
+import com.csc340team2.mvc.coachData.CoachData;
 import com.csc340team2.mvc.deck.Deck;
-import com.csc340team2.mvc.review.ReviewController;
 import com.csc340team2.mvc.session.Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
-import org.apache.logging.log4j.util.Lazy;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -49,6 +46,10 @@ public class Account {
     @OneToMany(targetEntity = Session.class, orphanRemoval = true, mappedBy = "account", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("account")
     private List<Session> sessions;
+
+    @OneToOne(targetEntity = CoachData.class, mappedBy="account")
+    @JsonIgnoreProperties("account")
+    private CoachData coachData;
 
     public Long getId() {
         return id;
@@ -111,5 +112,12 @@ public class Account {
     }
     public void setRole(AccountRole role){
         this.role = role;
+    }
+
+    public CoachData getCoachData(){
+        return coachData;
+    }
+    public void setCoachData(CoachData coachData){
+        this.coachData = coachData;
     }
 }

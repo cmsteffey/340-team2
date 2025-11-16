@@ -1,3 +1,4 @@
+<#import "macros.ftlh" as macros>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="header">
-    <div class="icon">
-        <img id="logo" src="../static/Logo.png" width="150px">
-    </div>
-</div>
+<@macros.header/>
 <div class="main">
     <form action="/sessions" method="POST">
         <h1 id="login-header" style="font-family: Inter, sans-serif">Log In to MagiCoach</h1>
