@@ -8,6 +8,7 @@
     --dashbox-border: #00b8d9;
     --text-main: #c9d1d9;
     --text-subtle: #8b949e;
+    --theme-1: rgb(153, 191, 192)
 }
 *{ font-family: Inter, sans-serif; }
 main {
@@ -52,24 +53,19 @@ body {
     }
 }
 
-.header > a {
+.header a {
     text-align: center;
     color: var(--text-main);
     text-decoration: none;
-    font-size: 20px;
+    font-size: calc(0.4*var(--top-bar-height));
 }
-a.login-link {
-    color: var(--text-main);
+.header {
+    color: var(--text-subtle)
+}
+.right-side-links {
     right: 10px;
     position: absolute;
-    height: var(--top-bar-height);
-    font-size: calc(0.6*var(--top-bar-height));
-    top: 0;
-    text-decoration: none;
-    margin-left: auto;
-    align-content: center;
 }
-
 .icon {
     padding-left: 20px;
     align-self: center;
