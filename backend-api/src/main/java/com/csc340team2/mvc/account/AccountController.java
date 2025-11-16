@@ -62,7 +62,6 @@ public class AccountController {
         if(session.getAccount().getRole() != AccountRole.COACH){
             return "redirect:/view/dashboard";
         }
-        LoggerFactory.getLogger(AccountController.class).warn("Str map size: {}", stringMap.size());
         CoachData data = session.getAccount().getCoachData();
         if(stringMap.containsKey("description"))
             data.setDescription(stringMap.get("description"));
