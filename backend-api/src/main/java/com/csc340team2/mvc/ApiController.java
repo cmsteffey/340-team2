@@ -10,6 +10,7 @@ import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.deck.Deck;
 import com.csc340team2.mvc.account.AccountRole;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.apache.coyote.Response;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
 import java.time.YearMonth;
@@ -130,6 +132,16 @@ public class ApiController {
                                                    fileName.endsWith(".js") ? "text/javascript" : "application/octet-stream")).body(resource);
         } catch(Exception o){
             LoggerFactory.getLogger(ApiController.class).error("Inside static:", o);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    @GetMapping("/profile_picture/{uuid}")
+    public ResponseEntity getProfilePicture(@PathVariable UUID uuid){
+        try {
+            InputStream stream = new FileInputStream("backend-api/src/main/resources/static/profile_pictures/" + uuid.toString() + ".png");
+            InputStreamResource resource = new InputStreamResource(stream);
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(resource);
+        } catch (IOException ioex){
             return ResponseEntity.internalServerError().build();
         }
     }

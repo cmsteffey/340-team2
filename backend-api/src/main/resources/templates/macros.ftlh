@@ -5,11 +5,13 @@
         </div>
         <a href="/view/dashboard">Dashboard</a>
         <a href="/view/calendar">Calendar</a>
-        <#if currentAccount??>
-        <a class="login-link profile-link" href="/view/profile">My Account: ${currentAccount.username}</a>
-        <#else>
-        <a class="login-link profile-link" href="/view/login">Log In</a> or <a class="login-link profile-link" href="/view/register">Register</a>
-        </#if>
+        <div class="right-side-links">
+            <#if currentAccount??>
+            <a class="login-link" href="/view/profile">My Account: ${currentAccount.username}</a>
+            <#else>
+            <a class="login-link" href="/view/login">Log In</a> or <a class="login-link" href="/view/register">Register</a>
+            </#if>
+        </div>
     </div>
 </#macro>
 <#macro dashbox title>

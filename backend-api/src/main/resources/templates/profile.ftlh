@@ -17,44 +17,31 @@
         <main>
             <h1>My Profile</h1>
             <div id="about">
-                <img id="profile-image" src="/static/Guy.png" alt="Guy picture">
+                <button popovertarget="image-update" id="image-update-form-button"><img id="profile-image" src="/${(currentAccount.coachData?? && currentAccount.coachData.imageName??)?then("profile_picture/" + currentAccount.coachData.imageName, "defaultPfp.png")}" alt="Guy picture"></button>
                 <div id="about-textual">
-                    <input id="ad-title" value="Ali's Expert 3-5 Color Coaching"><br>
-                    <textarea id="ad-description">Providing coaching on multicolor decks, both usage and deckbuilding, with an expertise in Commander.</textarea>
-                    <button id="save-ad" disabled>Save</button>
+                    <h2>${currentAccount.username}</h2>
+                    <p id="description" class="${(currentAccount.coachData.description??)?then("empty-description", "")}">${currentAccount.coachData.description!"<No profile description set.>"}</p>
+                    <button popovertarget="description-update" id="description-form-button">
+                        ${(currentAccount.coachData.description??)?then("Update description", "Add a description")}
+                    </button>
                 </div>
             </div>
             <br>
-            <div id="make-post">
-                <h2>Make a post</h2>
-                <input id="post-title" placeholder="Post Title"><br>
-                <textarea id="post-content" placeholder="Post something..."></textarea><br>
-                <button id="post-button">Post</button>
-            </div>
-            <br>
-            <h2>My Posts</h2>
-            <div id="posts">
 
-            </div>
         </main>
-        <script>
-            document.getElementById("ad-title").addEventListener("input", e => {document.getElementById("save-ad").disabled = false;})
-            document.getElementById("ad-description").addEventListener("input", e => {document.getElementById("save-ad").disabled = false;})
-            document.getElementById("save-ad").addEventListener("click", e => {document.getElementById("save-ad").disabled = true;})
-            document.getElementById("post-button").addEventListener("click", e => {
-                let postTitle = document.getElementById("post-title").value;
-                let postContent = document.getElementById("post-content").value;
-                document.getElementById("post-title").value = "";
-                document.getElementById("post-content").value = "";
-                let postHead = document.createElement("h2");
-                postHead.innerText = postTitle;
-                let postBody = document.createElement("p");
-                postBody.innerText = postContent;
-                let postElement = document.createElement("div")
-                postElement.appendChild(postHead);
-                postElement.appendChild(postBody);
-                document.getElementById("posts").appendChild(postElement);
-            })
-        </script>
+        <div id="image-update" popover>
+            <h1>Update Profile Picture</h1>
+            <form enctype="multipart/form-data" action="/update-coach-pfp" method="post">
+                <input type="file" name="picture" required>
+                <button>Update</button>
+            </form>
+        </div>
+        <div id="description-update" popover>
+            <h1>Update Profile Description</h1>
+            <form enctype="multipart/form-data" action="/update-coach-data" method="post">
+                <textarea name="description"></textarea>
+                <button>Update</button>
+            </form>
+        </div>
     </body>
 </html>
