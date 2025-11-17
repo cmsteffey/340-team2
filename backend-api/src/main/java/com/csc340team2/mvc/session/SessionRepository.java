@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface SessionRepository extends JpaRepository<Session, Long> {
     public List<Session> getAllBy();
     public Optional<Session> findSessionByKey(String key);
+
 }
