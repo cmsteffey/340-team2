@@ -5,6 +5,7 @@
         </div>
         <a href="/view/dashboard">Dashboard</a>
         <a href="/view/calendar">Calendar</a>
+        <a href="/view/decks">Decks</a>
         <div class="right-side-links">
             <#if currentAccount??>
             <a class="login-link" href="/view/profile">My Account: ${currentAccount.username}</a>

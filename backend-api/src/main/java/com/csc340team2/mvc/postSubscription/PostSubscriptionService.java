@@ -3,6 +3,7 @@ package com.csc340team2.mvc.postSubscription;
 
 import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.post.Post;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class PostSubscriptionService {
         return postSubscriptionRepository.existsByCoachAndUser(coach, user);
     }
 
+    @Transactional
     public void subscribe(Account user, Account coach){
         if(!isSubscribed(user, coach)){
             PostSubscription newSubscription = new PostSubscription();
@@ -37,9 +39,10 @@ public class PostSubscriptionService {
         }
     }
 
+    @Transactional
     public void unsubscribe(Account user, Account coach){
         if(isSubscribed(user,coach)){
-            postSubscriptionRepository.deleteByCoachAndUser(user, coach);
+            postSubscriptionRepository.deleteByUserAndCoach(user, coach);
         }
     }
 }

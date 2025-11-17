@@ -21,18 +21,35 @@
         <div class="container">
             <div class="featuredBox">
                 <#list accounts as account>
-                    <#if (account.role?string == "COACH")>
+                    <#if account.role?string == "COACH">
                         <div class="featuredCoachBox">
                             <div class="featuredCoachContentBox">
                                 <img id="coach1" src="../static/Guy.png" height="160px"/>
                             </div>
                             <div class="featuredCoachContentBox">
                                 <h3>${account.username}</h3>
+                                <hr class="divider">
+                                <h4>${account.coachData.description}</h4>
                             </div>
+
+                            <#if subscriptions[account.id?string]!false>
+                                <form method="post" action="/unsubscribe">
+                                    <input type="hidden" name="coachId" value="${account.id}">
+                                    <button type="submit" class="subscribeBtn">Unsubscribe</button>
+                                </form>
+                            <#else>
+                                <form method="post" action="/subscribe">
+                                    <input type="hidden" name="coachId" value="${account.id}">
+                                    <button type="submit" class="subscribeBtn">Subscribe</button>
+                                </form>
+                            </#if>
+
                         </div>
                     </#if>
                 </#list>
             </div>
+
+
 
             <div class="postBox">
                 <div class="postBoxHeader">
@@ -40,6 +57,7 @@
                         <div class="searchCategories">
                             <span>Name</span>
                             <span>Post Time</span>
+                            <span>Title</span>
                             <span>Content</span>
                         </div>
                     </div>
@@ -48,9 +66,10 @@
                 <div class="searchResultsBox">
                     <#list coachPosts as post>
                         <div class="searchResult">
-                            <span>${post.getAuthor().getFirstName()}</span>
+                            <span>${post.author.firstName}</span>
+                            <span>${post.formattedDate}</span>
                             <span>${post.title}</span>
-                            <span>${post.createdAt}</span>
+                            <span>${post.content}</span>
                         </div>
                     </#list>
                 </div>
