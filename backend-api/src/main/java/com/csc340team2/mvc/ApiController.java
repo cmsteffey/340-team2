@@ -4,6 +4,7 @@ import com.csc340team2.mvc.account.AccountService;
 import com.csc340team2.mvc.appointment.Appointment;
 import com.csc340team2.mvc.appointment.AppointmentService;
 import com.csc340team2.mvc.deck.DeckService;
+import com.csc340team2.mvc.postSubscription.PostSubscriptionService;
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionService;
 import com.csc340team2.mvc.account.Account;
@@ -43,6 +44,8 @@ public class ApiController {
     private DeckService deckService;
     @Autowired
     private SessionService sessionService;
+    @Autowired
+    private PostSubscriptionService postSubscriptionService;
     @Autowired
     private AppointmentService appointmentService;
 
@@ -113,8 +116,28 @@ public class ApiController {
     @GetMapping({"/view/dashboard", "/"})
     public String viewDashboard(Session currentSession, Model model){
         model.addAttribute("pct", Math.abs(new Random().nextInt()) % 100);
-        return "dashboard";
+
+        //Used in dashboard to filter out coaches
+        List<Account> accountList = accountService.getAllAccounts();
+        Collections.shuffle(accountList);
+        model.addAttribute("accounts", accountList);
+
+        model.addAttribute("coachPosts", postSubscriptionService.getSubscribedPosts(currentSession.getAccount().getId()));
+        LoggerFactory.getLogger(ApiController.class).debug("List {}", model.getAttribute("coachPosts"));
+
+        //Filter out user and coach
+        return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";
     }
+
+    @PostMapping("/subscribe")
+    public String subscribeToCoach(Session session, @RequestParam long coachId){
+        Account user = session.getAccount();
+        Optional<Account> coach = accountService.getAccountById(coachId);
+        coach.ifPresent(account -> postSubscriptionService.subscribe(user, account));
+
+        return "redirect:/view/dashboard";
+    }
+
     @GetMapping("/static/{fileName}")
     public ResponseEntity getStaticFile(@PathVariable String fileName){
         if(fileName.contains("\\") || fileName.contains("/")){
