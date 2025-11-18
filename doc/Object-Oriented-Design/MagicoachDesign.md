@@ -28,7 +28,7 @@ Table of Contents
 
 ## 2. Use Cases
 ### 2.1 Use Case Model
-![Use Case Model](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/UseCaseModel.png)
+![Use Case Model](https://github.com/cmsteffey/340-team2/blob/main/doc/Object-Oriented-Design/UseCases.png)
 
 ### 2.2 Use Case Descriptions
 
