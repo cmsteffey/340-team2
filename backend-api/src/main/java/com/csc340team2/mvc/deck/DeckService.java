@@ -1,6 +1,7 @@
 package com.csc340team2.mvc.deck;
 
 import com.csc340team2.mvc.account.Account;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,16 +9,39 @@ import java.util.List;
 
 @Service
 public class DeckService {
+
     @Autowired
     private DeckRepository deckRepository;
 
-    /*@Query("SELECT d FROM Deck d JOIN FETCH d.account account")
-    public List<Deck> getAllWithUsers();
-    public List<Deck> getAllBy();
-    public List<Deck> getAllByAccount(Account account);
-    @Modifying
-    public int deleteDecksById(Long id);
-    * */
+    @Autowired
+    private ScryfallClient scryfallClient;
+
+    @Transactional
+    public void importDeck(Account user, String scryfallCode, String name){
+        ScryfallDeck deckData = scryfallClient.fetchDeck(scryfallCode);
+
+        Deck newDeck = new Deck();
+        newDeck.setAccount(user);
+        newDeck.setNickname(name);
+        newDeck.setScryfallUrl(deckData.getUrl());
+        newDeck.setColors(parseColors(deckData.getCards()));
+        newDeck.setCoverCardUUID(deckData.getCards().isEmpty() ? "" : deckData.getCards().get(0).getUuid());
+
+        deckRepository.save(newDeck);
+    }
+
+    private Short parseColors(List<ScryfallCard> cards){
+        short colors = 0;
+        for(ScryfallCard card : cards){
+            String ci = card.getColorIdentity();
+            if(ci.contains("W")) colors |= 16;
+            if(ci.contains("U")) colors |= 8;
+            if(ci.contains("B")) colors |= 4;
+            if(ci.contains("R")) colors |= 2;
+            if(ci.contains("G")) colors |= 1;
+        }
+        return colors;
+    }
 
     public List<Deck> getAllDecksWithUsers(){
         return deckRepository.getAllWithUsers();

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "post")
@@ -65,5 +67,9 @@ public class Post {
 
     public void setAuthor(Account author) {
         this.author = author;
+    }
+
+    public String getFormattedDate() {
+        return createdAt.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 }
