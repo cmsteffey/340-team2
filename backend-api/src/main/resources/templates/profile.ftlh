@@ -33,13 +33,15 @@
             <h1>Update Profile Picture</h1>
             <form enctype="multipart/form-data" action="/update-coach-pfp" method="post">
                 <input type="file" name="picture" required>
+                <br>
                 <button>Update</button>
             </form>
         </div>
         <div id="description-update" popover>
             <h1>Update Profile Description</h1>
             <form enctype="multipart/form-data" action="/update-coach-data" method="post">
-                <textarea name="description"></textarea>
+                <textarea name="description" rows="5" cols="50"></textarea>
+                <br>
                 <button>Update</button>
             </form>
         </div>
