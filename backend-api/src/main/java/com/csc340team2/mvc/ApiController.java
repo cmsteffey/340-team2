@@ -5,6 +5,7 @@ import com.csc340team2.mvc.appointment.Appointment;
 import com.csc340team2.mvc.appointment.AppointmentService;
 import com.csc340team2.mvc.deck.DeckService;
 import com.csc340team2.mvc.deck.Deck;
+import com.csc340team2.mvc.post.PostService;
 import com.csc340team2.mvc.postSubscription.PostSubscriptionService;
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionService;
@@ -42,6 +43,8 @@ public class ApiController {
     private PostSubscriptionService postSubscriptionService;
     @Autowired
     private AppointmentService appointmentService;
+    @Autowired
+    private PostService postService;
 
     @GetMapping("/view/decks")
     public String viewDecks(Session session, Model model){
@@ -132,7 +135,9 @@ public class ApiController {
 
         model.addAttribute("coachPosts", postSubscriptionService.getSubscribedPosts(currentSession.getAccount().getId()));
         LoggerFactory.getLogger(ApiController.class).debug("List {}", model.getAttribute("coachPosts"));
-
+        if(currentSession.getAccount().getRole() == AccountRole.COACH){
+            model.addAttribute("posts", postService.getAllPostsMadeBy(currentSession.getAccount()));
+        }
         return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";
     }
 

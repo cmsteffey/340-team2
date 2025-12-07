@@ -50,3 +50,22 @@ img.dashbox-content {
     transform-origin: center;
     transform-box: fill-box;
 }
+div[popover] h1{
+     color: var(--text-main);
+     margin: 0 0 10px 0;
+ }
+div[popover] h3{
+    color: var(--text-main);
+    margin: 0 0 10px 0;
+}
+div[popover] {
+    background-color: var(--background);
+    border: 1px var(--text-main) solid;
+    padding: 20px;
+}
+div[popover] input, div[popover] textarea {
+    background-color: var(--theme-1)
+}
+.post-container {
+    color: var(--text-main)
+}

@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -23,18 +21,19 @@ public class PostController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping("/posts")
-    public ResponseEntity createPost(Session session, @RequestBody JsonNode bodyNode){
+    @PostMapping("/create-post")
+    public ResponseEntity createPost(Session session, @RequestParam Map<String, String> stringMap){
         if(session.getAccount().getRole() != AccountRole.COACH){
             return ResponseEntity.status(401).contentType(MediaType.TEXT_PLAIN).body("Non-coaches cannot create posts");
         }
-        JsonNode titleNode = bodyNode.findValue("title");
-        if(titleNode == null || !titleNode.isTextual())
+        String title = stringMap.get("title");
+        if(title == null)
             return ResponseEntity.status(400).contentType(MediaType.TEXT_PLAIN).body("Missing or bad 'title'");
-        JsonNode contentNode = bodyNode.findValue("content");
-        if(contentNode == null || !contentNode.isTextual())
+        String content = stringMap.get("content");
+        if(content == null)
             return ResponseEntity.status(400).contentType(MediaType.TEXT_PLAIN).body("Missing or bad 'content'");
-        return ResponseEntity.ok(postService.createPost(session.getAccount(), titleNode.textValue(), contentNode.textValue()));
+        postService.createPost(session.getAccount(), title, content);
+        return ResponseEntity.status(303).header("Location", "/view/dashboard").build();
     }
     @GetMapping("/posts/by/{id}")
     public ResponseEntity getPostsBy(@PathVariable Long id){
