@@ -55,6 +55,21 @@
                     <h1 class="dashbox-content">Anna Ericsson: Coaching<br>09/28/2025</h1>
                 </div>
             </div>
+
+            <div class="post-container">
+                <h3>My Posts</h3>
+                <button popovertarget="post-creation-menu">Make a Post</button>
+                <#if posts?size == 0>
+                    No posts!
+                <#else>
+                    <#list posts as post>
+                        <div class="dashboard-post">
+                            <h3>${post.title}</h3>
+                            <span>${post.content}</span>
+                        </div>
+                    </#list>
+                </#if>
+            </div>
         </main>
         <div popover id="add-block-menu" style="background-color: rgb(153, 191, 192)">
             <span>- Week Revenue</span><br>
@@ -65,11 +80,13 @@
             <span>- Review Rate</span><br>
             <span id="add-sr">+ Service Requests</span>
         </div>
-        <script>
-            document.getElementById("add-sr").onclick = (e) => {
-                document.getElementById("add-block-menu").togglePopover(false);
-                document.getElementById("sr-block").hidden = false;
-            }
-        </script>
+        <div popover id="post-creation-menu">
+            <h1>Make a Post</h1>
+            <form method="POST" action="/create-post">
+                <h3>Title</h3><input name="title">
+                <h3>Content</h3><textarea name="content" rows="15" cols="150"></textarea><br>
+                <button>Post!</button>
+            </form>
+        </div>
     </body>
 </html>
