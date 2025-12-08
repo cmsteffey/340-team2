@@ -5,6 +5,8 @@ import com.csc340team2.mvc.appointment.Appointment;
 import com.csc340team2.mvc.appointment.AppointmentService;
 import com.csc340team2.mvc.deck.DeckService;
 import com.csc340team2.mvc.deck.Deck;
+import com.csc340team2.mvc.event.Event;
+import com.csc340team2.mvc.event.EventService;
 import com.csc340team2.mvc.post.PostService;
 import com.csc340team2.mvc.postSubscription.PostSubscriptionService;
 import com.csc340team2.mvc.session.Session;
@@ -45,6 +47,8 @@ public class ApiController {
     private AppointmentService appointmentService;
     @Autowired
     private PostService postService;
+    @Autowired
+    private EventService eventService;
 
     @GetMapping("/view/decks")
     public String viewDecks(Session session, Model model){
@@ -136,7 +140,8 @@ public class ApiController {
         model.addAttribute("coachPosts", postSubscriptionService.getSubscribedPosts(currentSession.getAccount().getId()));
         LoggerFactory.getLogger(ApiController.class).debug("List {}", model.getAttribute("coachPosts"));
         if(currentSession.getAccount().getRole() == AccountRole.COACH){
-            model.addAttribute("posts", postService.getAllPostsMadeBy(currentSession.getAccount()));
+            model.addAttribute("posts", postService.getAllPostsMadeBy(currentSession.getAccount()).stream().sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt())).toList());
+            model.addAttribute("events", eventService.getEventsHostedBy(currentSession.getAccount()).stream().sorted(Comparator.comparing(Event::getStartTime)).toList());
         }
         return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";
     }

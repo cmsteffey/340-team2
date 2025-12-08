@@ -4,7 +4,6 @@ import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.account.AccountRole;
 import com.csc340team2.mvc.account.AccountService;
 import com.csc340team2.mvc.session.Session;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
