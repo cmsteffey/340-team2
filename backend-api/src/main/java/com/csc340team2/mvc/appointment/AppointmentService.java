@@ -18,6 +18,9 @@ public class AppointmentService {
         return appointmentRepository.getAppointmentsByCustomer(customer);
     }
     public Appointment saveAppointment(Appointment appointment){
+        List<Appointment> conflicts = appointmentRepository.getConflicts(appointment.getCoach().getId(), appointment.getTime().toEpochMilli(), appointment.getLength());
+        if(!conflicts.isEmpty())
+            return null;
         return appointmentRepository.save(appointment);
     }
 

@@ -66,6 +66,12 @@ div[popover] {
 div[popover] input, div[popover] textarea {
     background-color: var(--theme-1)
 }
-.post-container {
-    color: var(--text-main)
+
+#creatable-container {
+    color: var(--text-main);
+    display: flex;
+    flex-flow: row nowrap;
+}
+#creatable-container > * {
+    flex: 1;
 }

@@ -35,7 +35,7 @@ public class Event {
     private String eventAddress;
 
     @Column()
-    private double eventCost;
+    private int eventCost;
 
     @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "event_host_id", nullable = false)
@@ -48,7 +48,7 @@ public class Event {
     public Instant getStartTime() { return startTime; }
     public int getEventDuration() { return eventDuration; }
     public String getEventAddress() { return eventAddress; }
-    public double getEventCost() { return eventCost; }
+    public int getEventCost() { return eventCost; }
     public Account getEventHost() { return eventHost; }
     //public List<EventSubscription> getEventSubscriptions() { return eventSubscriptions; }
 
@@ -59,7 +59,7 @@ public class Event {
     public void setStartTime(Instant startTime) { this.startTime = startTime; }
     public void setEventDuration(int eventDuration) { this.eventDuration = eventDuration; }
     public void setEventAddress(String eventAddress) { this.eventAddress = eventAddress; }
-    public void setEventCost(double eventCost) { this.eventCost = eventCost; }
+    public void setEventCost(int eventCost) { this.eventCost = eventCost; }
     public void setEventHost(Account eventHost) { this.eventHost = eventHost; }
     //public void setEventSubscriptions(List<EventSubscription> eventSubscriptions) { this.eventSubscriptions = eventSubscriptions; }
 
