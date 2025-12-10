@@ -5,10 +5,8 @@
 <head>
     <link rel="stylesheet" href="/static/navbar.css">
     <link rel="stylesheet" href="/static/decks.css">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Decks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -21,26 +19,25 @@
 <main>
     <div class="container">
         <div class="decksBox">
-            <div class="importWrapper">
-                <form method="post" action="/importDeck" class="importForm">
-                    <input type="text" name="scryfallUrl" placeholder="Paste Scryfall deck URL" required>
-                    <input type="text" name="nickname" placeholder="Deck nickname" required>
-                    <button type="submit" class="importBtn">Import</button>
-                </form>
-            </div>
+            <form method="post" action="/view/decks/import/text" class="importForm">
+                <input type="text" name="nickname" placeholder="Deck nickname" required>
+                <textarea name="plainText" placeholder="Paste deck list here (e.g., '4 Lightning Bolt')" required></textarea>
+                <button type="submit" class="importBtn">Import Deck</button>
+            </form>
 
-            <#list decks as deck>
-                <div class="deckContainer">
-                    <div class="deckImageAndTitle">
-                        <h3>${deck.name}</h3>
-                        <#if deck.imageName?? && deck.imageName != "">
-                            <img src="../${deck.imageName}" width="90%">
+            <div class="deck-grid">
+                <#list decks as deck>
+                    <a href="/view/decks/${deck.id}" class="deck-card">
+                        <#if deck.coverCardUUID?? && deck.coverCardUUID != "">
+                            <img src="https://api.scryfall.com/cards/${deck.coverCardUUID}?format=image" alt="${deck.nickname}">
+                        <#else>
+                            <img src="/static/default_card.png" alt="No cover card">
                         </#if>
-                    </div>
-                    <p>${deck.description}</p>
-                </div>
-            </#list>
-
+                        <h3>${deck.nickname}</h3>
+                        <p>${deck.colorsAsString}</p>
+                    </a>
+                </#list>
+            </div>
         </div>
     </div>
 </main>

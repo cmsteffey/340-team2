@@ -51,23 +51,29 @@ public class ApiController {
     private EventService eventService;
 
     @GetMapping("/view/decks")
-    public String viewDecks(Session session, Model model){
-        List<Deck> decks = deckService.getAllDecksWithUsers();
-        model.addAttribute("decks", decks);
+    public String viewMyDecks(Session session, Model model){
+        model.addAttribute("decks", deckService.getAllOwnedBy(session.getAccount()));
         return "decks";
     }
 
-    @PostMapping("/importDeck")
-    public String importDeck(Session session, @RequestParam String scryfallUrl, @RequestParam String nickname){
-        Account user = session.getAccount();
-        deckService.importDeck(user, scryfallUrl, nickname);
-        return "redirect:/view/decks";
-    }
+    @GetMapping("/view/decks/{id}")
+    public String viewDeck(@PathVariable Long id, Session session, Model model) {
+        Optional<Deck> deckOpt = deckService.getDeckById(id);
 
-    @GetMapping("/view/my-decks")
-    public String viewMyDecks(Session session, Model model){
-        model.addAttribute("decks", deckService.getAllOwnedBy(session.getAccount()));
-        return "myDecksView";
+        if (deckOpt.isEmpty()) {
+            return "redirect:/view/decks";
+        }
+
+        Deck deck = deckOpt.get();
+
+        if (!deck.getAccount().getId().equals(session.getAccount().getId())) {
+            return "redirect:/view/decks";
+        }
+
+        model.addAttribute("deck", deck);
+        model.addAttribute("cards", deck.getCards());
+
+        return "deckview";
     }
 
     @GetMapping("/view/calendar")
