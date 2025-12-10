@@ -21,4 +21,27 @@ public class ScryfallClient {
         String url = "https://api.scryfall.com/cards/" + cardId;
         return restTemplate.getForObject(url, ScryfallCard.class);
     }
+
+    public ScryfallCard searchCardByName(String cardName) {
+        try {
+            String encodedName = java.net.URLEncoder.encode(cardName, "UTF-8");
+            String url = "https://api.scryfall.com/cards/named?fuzzy=" + encodedName;
+            return restTemplate.getForObject(url, ScryfallCard.class);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new RuntimeException("Failed to encode card name", e);
+        }
+    }
+
+    public ScryfallCard fetchCardBySetAndNumber(String setCode, String collectorNumber) {
+        String url = "https://api.scryfall.com/cards/" + setCode.toLowerCase() + "/" + collectorNumber;
+        return restTemplate.getForObject(url, ScryfallCard.class);
+    }
+
+    public void respectRateLimit() {
+        try {
+            Thread.sleep(100); // 100ms delay
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }
