@@ -13,6 +13,6 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> getAppointmentsByCoach(Account coach);
     List<Appointment> getAppointmentsByCustomer(Account customer);
-    @Query(value = "select id from appointment a where a.coach_id = :coach and ((a.time > to_timestamp(:startTime / 1000) and a.time < to_timestamp((:startTime / 1000) + :length)) OR ((a.time + make_interval(secs => :length)) > to_timestamp(:startTime / 1000) and (a.time + make_interval(secs => :length)) < to_timestamp((:startTime / 1000) + :length)))", nativeQuery = true)
-    List<Appointment> getConflicts(@Param("coach") Long coachId, @Param("start") Long startTime, @Param("length") Integer length);
+    @Query(value = "select id from appointment a where a.coach_id = :coach and ((a.time >= to_timestamp(:startTime / 1000) and a.time < to_timestamp((:startTime / 1000) + :length)) OR ((a.time + make_interval(secs => a.length)) > to_timestamp(:startTime / 1000) and (a.time + make_interval(secs => a.length)) <= to_timestamp((:startTime / 1000) + :length)))", nativeQuery = true)
+    List<Long> getConflicts(@Param("coach") Long coachId, @Param("startTime") Long startTime, @Param("length") Integer length);
 }

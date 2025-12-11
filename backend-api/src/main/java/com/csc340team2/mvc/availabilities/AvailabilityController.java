@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -52,7 +53,7 @@ public class AvailabilityController {
             return ResponseEntity.badRequest().body("Bad AP");
         }
         int weekday = weekdayString.charAt(0) - '0';
-        int startHour = Integer.parseInt(startHourString) + (apString.equals("PM") ? 12 : 0);
+        int startHour = Integer.parseInt(startHourString) + (startHourString.equals("12") ? -12 : 0) + (apString.equals("PM") ? 12 : 0);
         int startMinute = Integer.parseInt(startMinuteString);
         if(startHour > 23 || startMinute > 59 || (((startHour * 60) + startMinute) * 60 > 86400)){
             return ResponseEntity.badRequest().body("Bad time");
@@ -65,10 +66,10 @@ public class AvailabilityController {
         availability.setLength(length);
         availability.setWeekday(weekday);
         CoachAvailability savedAvailability = availabilityService.saveAvailability(availability);
-        return ResponseEntity.status(303).header("Location", "/view/dashboard").build();
+        return ResponseEntity.status(303).header("Location", "/view/profile").build();
     }
-    @PostMapping("/delete-availability/:id")
-    public ResponseEntity deleteAvailability(Session session, Long id){
+    @PostMapping("/delete-availability/{id}")
+    public ResponseEntity deleteAvailability(Session session,@PathVariable Long id){
         availabilityService.deleteAvailability(id);
         return ResponseEntity.status(303).header("Location", "/view/dashboard").build();
     }
