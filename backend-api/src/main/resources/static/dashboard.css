@@ -77,7 +77,7 @@ div[popover] input, div[popover] textarea {
 
 #creatable-container {
     color: var(--text-main);
-    gap: 10px;
+    gap: 40px;
     display: flex;
     flex-flow: row nowrap;
 }

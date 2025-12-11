@@ -29,7 +29,7 @@
                                 <#list appointments as appointment>
                                     <#if offsets[appointment?index] == offset>
                                         <div class="appointment blue-appointment">
-                                            Appt: ${appointment.customer.firstName} ${appointment.customer.lastName}<br>
+                                            Appt: ${(currentAccount.role?string == "CUSTOMER")?then(appointment.coach.username,appointment.customer.username)}<br>
                                             ${timesToShow[appointment?index]}
                                         </div>
                                     </#if>

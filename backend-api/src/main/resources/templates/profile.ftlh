@@ -33,7 +33,7 @@
             </button>
             <#list availabilities as availability>
                 <div>
-                    ${dayNames[availability.weekday]}s from ${(availability.startTime / 3600)?string?left_pad(2, '0')}:${((availability.startTime % 3600) / 60)?string?left_pad(2, '0')}
+                    ${dayNames[availability.weekday]}s from ${(availability.startTime / 3600 % 12 == 0)?then(12?floor?string, (availability.startTime / 3600 % 12)?floor?string)}:${((availability.startTime % 3600) / 60)?floor?string?left_pad(2, '0')} ${(availability.startTime >= 43200)?then("PM", "AM")} until ${((availability.startTime + availability.length) / 3600 % 12 == 0)?then(12?floor?string, ((availability.startTime + availability.length) / 3600 % 12)?floor?string)}:${(((availability.startTime + availability.length) % 3600) / 60)?floor?string?left_pad(2, '0')} ${(availability.startTime + availability.length > 43200)?then("PM", "AM")}<form action="/delete-availability/${availability.id}" method="POST"><button>Remove</button></form>
                 </div>
             </#list>
 
