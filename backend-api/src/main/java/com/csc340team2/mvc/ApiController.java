@@ -59,6 +59,7 @@ public class ApiController {
     private EventService eventService;
     @Autowired
     private EventSubscriptionService eventSubscriptionService;
+    @Autowired
     private AvailabilityService availabilityService;
     @Autowired
     private ReviewService reviewService;
@@ -167,6 +168,15 @@ public class ApiController {
         if(currentSession.getAccount().getRole() == AccountRole.COACH){
             model.addAttribute("posts", postService.getAllPostsMadeBy(currentSession.getAccount()).stream().sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt())).toList());
             model.addAttribute("events", eventService.getEventsHostedBy(currentSession.getAccount()).stream().sorted(Comparator.comparing(Event::getStartTime)).toList());
+            model.addAttribute("availabilities", availabilityService.getAvailabilitiesForCoach(currentSession.getAccount()));
+            model.addAttribute("reviews", reviewService.getReviewsByCoach(currentSession.getAccount()).stream().limit(4).sorted(Comparator.comparing(Review::getPostTime).reversed()).toList());
+            model.addAttribute("comments", commentService.getCommentsByPostAuthor(currentSession.getAccount()).stream().limit(4).sorted(Comparator.comparing(Comment::getPostTime).reversed()).toList());
+            int[] weekOfSubscribers = new int[7];
+            List<Object[]> subscribeCounts = postSubscriptionService.getDailySubscribers(currentSession.getAccount());
+            for(Object[] fields : subscribeCounts){
+                weekOfSubscribers[((BigDecimal)fields[0]).intValue()] = (int)(long)(fields[1]);
+            }
+            model.addAttribute("subscribersPerDay", weekOfSubscribers);
         } else {
             List<Event> upcomingEvents = eventService.getUpcomingEvents();
             model.addAttribute("upcomingEvents", upcomingEvents);
@@ -179,15 +189,6 @@ public class ApiController {
                 eventSubscriptions.put(String.valueOf(event.getId()), isSubscribed);
             }
             model.addAttribute("eventSubscriptions", eventSubscriptions);
-            model.addAttribute("availabilities", availabilityService.getAvailabilitiesForCoach(currentSession.getAccount()));
-            model.addAttribute("reviews", reviewService.getReviewsByCoach(currentSession.getAccount()).stream().limit(4).sorted(Comparator.comparing(Review::getPostTime).reversed()).toList());
-            model.addAttribute("comments", commentService.getCommentsByPostAuthor(currentSession.getAccount()).stream().limit(4).sorted(Comparator.comparing(Comment::getPostTime).reversed()).toList());
-            int[] weekOfSubscribers = new int[7];
-            List<Object[]> subscribeCounts = postSubscriptionService.getDailySubscribers(currentSession.getAccount());
-            for(Object[] fields : subscribeCounts){
-                weekOfSubscribers[((BigDecimal)fields[0]).intValue()] = (int)(long)(fields[1]);
-            }
-            model.addAttribute("subscribersPerDay", weekOfSubscribers);
         }
 
         return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";
