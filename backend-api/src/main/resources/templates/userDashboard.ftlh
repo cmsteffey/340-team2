@@ -43,12 +43,12 @@
                         </div>
 
                         <#if subscriptions[account.id?string]!false>
-                            <form method="post" action="/unsubscribe">
+                            <form method="post" action="/unsubscribe" onclick="event.stopPropagation()">
                                 <input type="hidden" name="coachId" value="${account.id}">
                                 <button type="submit" class="subscribeBtn">Unsubscribe</button>
                             </form>
                         <#else>
-                            <form method="post" action="/subscribe">
+                            <form method="post" action="/subscribe" onclick="event.stopPropagation()">
                                 <input type="hidden" name="coachId" value="${account.id}">
                                 <button type="submit" class="subscribeBtn">Subscribe</button>
                             </form>

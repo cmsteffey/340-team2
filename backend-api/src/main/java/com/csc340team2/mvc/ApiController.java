@@ -151,7 +151,6 @@ public class ApiController {
         model.addAttribute("currentAccount", currentSession.getAccount());
 
         List<Account> accountList = accountService.getAllAccounts();
-        Collections.shuffle(accountList);
         model.addAttribute("accounts", accountList);
 
         Map<String, Boolean> subscriptions = new HashMap<>();
