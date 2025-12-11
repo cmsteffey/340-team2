@@ -48,3 +48,8 @@ P1 exits the app.
 4. Customer pasts into import field and names
 5. Customer has a shiny new deck ready to go.
 6. Customer shows coach and they discuss during their appointment.
+
+#### 10. Provider: Updates profile description
+1. Provider logs in and visits their profile page.
+2. Privder enters in a new description.
+3. Provider confirms change and description is switched.
