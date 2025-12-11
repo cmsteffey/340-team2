@@ -72,7 +72,7 @@
 
             <div class="searchResultsBox">
                 <#list coachPosts as post>
-                    <div class="searchResult">
+                    <div class="searchResult" onclick="openPostModal(${post?index})" style="cursor: pointer;">
                         <span>${post.author.firstName}</span>
                         <span>${post.formattedDate}</span>
                         <span>${post.title}</span>
@@ -103,6 +103,7 @@
         </div>
     </div>
 
+    <!-- Event Modal -->
     <div id="eventModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEventModal()">&times;</span>
@@ -118,6 +119,7 @@
         </div>
     </div>
 
+    <!-- Coach Modal -->
     <div id="coachModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeCoachModal()">&times;</span>
@@ -138,6 +140,19 @@
                 <button class="event-action-btn join-btn" onclick="submitReview()">Submit Review</button>
             </div>
 
+            <div class="appointment-section">
+                <h3>Schedule an Appointment</h3>
+                <div class="appointment-form">
+                    <label for="appointmentDateTime">Select Date & Time:</label>
+                    <input type="datetime-local" id="appointmentDateTime">
+
+                    <label for="appointmentLength">Duration (minutes):</label>
+                    <input type="number" id="appointmentLength" min="15" step="15" value="60" placeholder="60">
+
+                    <button class="event-action-btn join-btn" onclick="bookAppointment()">Book Appointment</button>
+                </div>
+            </div>
+
             <div id="existingReviews">
                 <h4>Reviews</h4>
                 <div id="reviewsList"></div>
@@ -145,9 +160,32 @@
         </div>
     </div>
 
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePostModal()">&times;</span>
+            <h2 id="postModalTitle"></h2>
+            <p id="postModalAuthor"></p>
+            <p id="postModalDate"></p>
+            <p id="postModalContent"></p>
+
+            <div class="rating-section">
+                <h3>Comments</h3>
+                <textarea id="commentContent" placeholder="Write a comment..." rows="3"></textarea>
+                <button class="event-action-btn join-btn" onclick="submitComment()">Post Comment</button>
+            </div>
+
+            <div id="existingComments">
+                <h4>All Comments</h4>
+                <div id="commentsList"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Get current account ID from session
         const currentAccountId = ${currentAccount.id};
 
+        // Store event data for modal
         const events = [
             <#if upcomingEvents?? && upcomingEvents?has_content>
             <#list upcomingEvents as event>
@@ -182,6 +220,78 @@
 
         let currentCoachIndex = null;
         let selectedRating = 0;
+
+        const posts = [
+            <#list coachPosts as post>
+            {
+                id: ${post.id},
+                title: "${post.title?js_string}",
+                content: "${post.content?js_string}",
+                author: "${post.author.firstName?js_string}",
+                date: "${post.formattedDate?js_string}"
+            }<#if post?has_next>,</#if>
+            </#list>
+        ];
+
+        let currentPostIndex = null;
+
+        function bookAppointment() {
+            if (currentCoachIndex === null) {
+                alert('Please select a coach');
+                return;
+            }
+
+            const coach = coaches[currentCoachIndex];
+            const dateTimeInput = document.getElementById('appointmentDateTime');
+            const lengthInput = document.getElementById('appointmentLength');
+
+            if (!dateTimeInput.value) {
+                alert('Please select a date and time');
+                return;
+            }
+
+            if (!lengthInput.value || lengthInput.value < 15) {
+                alert('Please enter a valid duration (at least 15 minutes)');
+                return;
+            }
+
+            const selectedDateTime = new Date(dateTimeInput.value);
+            const now = new Date();
+
+            if (selectedDateTime <= now) {
+                alert('Please select a future date and time');
+                return;
+            }
+
+            const timeInMillis = selectedDateTime.getTime();
+            const lengthInSeconds = parseInt(lengthInput.value) * 60;
+
+            // Create a form and submit it using POST with x-www-form-urlencoded
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/appointments';
+
+            const timeInput = document.createElement('input');
+            timeInput.type = 'hidden';
+            timeInput.name = 'time';
+            timeInput.value = timeInMillis.toString();
+            form.appendChild(timeInput);
+
+            const lengthHiddenInput = document.createElement('input');
+            lengthHiddenInput.type = 'hidden';
+            lengthHiddenInput.name = 'length';
+            lengthHiddenInput.value = lengthInSeconds.toString();
+            form.appendChild(lengthHiddenInput);
+
+            const withInput = document.createElement('input');
+            withInput.type = 'hidden';
+            withInput.name = 'with';
+            withInput.value = coach.id.toString();
+            form.appendChild(withInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
 
         function initStarRating() {
             const stars = document.querySelectorAll('.star');
@@ -354,12 +464,14 @@
             const event = events[currentEventIndex];
             const btn = document.getElementById('eventActionBtn');
 
+            // Disable button during request
             btn.disabled = true;
             const originalText = btn.textContent;
             btn.textContent = 'Loading...';
 
             try {
                 if (event.isJoined) {
+                    // Unjoin event using DELETE endpoint
                     const response = await fetch('/eventSubscription', {
                         method: 'DELETE',
                         headers: {
@@ -372,10 +484,12 @@
                     });
 
                     if (response.ok) {
+                        // Update local state
                         event.isJoined = false;
                         btn.textContent = 'Join Event';
                         btn.className = 'event-action-btn join-btn';
 
+                        // Show success message
                         showNotification('Successfully left the event');
                     } else {
                         const errorText = await response.text();
@@ -383,6 +497,7 @@
                         btn.textContent = originalText;
                     }
                 } else {
+                    // Join event using POST endpoint
                     const response = await fetch('/eventSubscription', {
                         method: 'POST',
                         headers: {
@@ -417,6 +532,7 @@
             }
         }
 
+        // Simple notification function
         function showNotification(message) {
             const notification = document.createElement('div');
             notification.className = 'notification';
@@ -454,6 +570,13 @@
             document.getElementById('selectedRatingText').textContent = 'Select a rating';
             updateStarDisplay();
 
+            const dateTimeInput = document.getElementById('appointmentDateTime');
+            dateTimeInput.value = '';
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            dateTimeInput.min = now.toISOString().slice(0, 16);
+            document.getElementById('appointmentLength').value = '60';
+
             loadReviews(coach.id);
 
             modal.style.display = 'block';
@@ -464,13 +587,132 @@
             currentCoachIndex = null;
         }
 
+        function openPostModal(index) {
+            currentPostIndex = index;
+            const post = posts[index];
+            const modal = document.getElementById('postModal');
+
+            document.getElementById('postModalTitle').textContent = post.title;
+            document.getElementById('postModalAuthor').innerHTML = '<strong>Author:</strong> ' + post.author;
+            document.getElementById('postModalDate').innerHTML = '<strong>Posted:</strong> ' + post.date;
+            document.getElementById('postModalContent').textContent = post.content;
+
+            document.getElementById('commentContent').value = '';
+
+            loadComments(post.id);
+
+            modal.style.display = 'block';
+        }
+
+        function closePostModal() {
+            document.getElementById('postModal').style.display = 'none';
+            currentPostIndex = null;
+        }
+
+        async function submitComment() {
+            if (currentPostIndex === null) return;
+
+            const post = posts[currentPostIndex];
+            const commentContent = document.getElementById('commentContent').value.trim();
+
+            if (!commentContent) {
+                alert('Please write a comment');
+                return;
+            }
+
+            const commentData = {
+                post: { id: post.id },
+                content: commentContent
+            };
+
+            console.log('Submitting comment:', commentData);
+
+            try {
+                const response = await fetch('/comment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(commentData)
+                });
+
+                console.log('Response status:', response.status);
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Comment created:', result);
+                    showNotification('Comment posted successfully!');
+                    document.getElementById('commentContent').value = '';
+                    await loadComments(post.id);
+                } else {
+                    const errorText = await response.text();
+                    console.error('Error response:', errorText);
+                    alert('Failed to post comment. Status: ' + response.status + '\nError: ' + errorText);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while posting the comment: ' + error.message);
+            }
+        }
+
+        async function loadComments(postId) {
+            try {
+                const response = await fetch('/comments/on/' + postId);
+
+                if (response.ok) {
+                    const comments = await response.json();
+                    displayComments(comments);
+                } else {
+                    document.getElementById('commentsList').innerHTML = '<p class="no-availability">Unable to load comments</p>';
+                }
+            } catch (error) {
+                console.error('Error loading comments:', error);
+                document.getElementById('commentsList').innerHTML = '<p class="no-availability">Unable to load comments</p>';
+            }
+        }
+
+        function displayComments(comments) {
+            const commentsList = document.getElementById('commentsList');
+
+            if (!comments || comments.length === 0) {
+                commentsList.innerHTML = '<p class="no-availability">No comments yet. Be the first to comment!</p>';
+                return;
+            }
+
+            commentsList.innerHTML = comments.map(comment => {
+                const date = new Date(comment.postTime);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                const username = comment.customer.username ? comment.customer.username : 'Anonymous';
+
+                return `
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="review-author">` + username + `</span>
+                            <span class="review-date">` + formattedDate + `</span>
+                        </div>
+                        <div class="review-content">` + comment.content + `</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
         window.onclick = function(event) {
             const eventModal = document.getElementById('eventModal');
             const coachModal = document.getElementById('coachModal');
+            const postModal = document.getElementById('postModal');
             if (event.target == eventModal) {
                 closeEventModal();
             } else if (event.target == coachModal) {
                 closeCoachModal();
+            } else if (event.target == postModal) {
+                closePostModal();
             }
         }
 
@@ -478,6 +720,7 @@
             if (event.key === 'Escape') {
                 closeEventModal();
                 closeCoachModal();
+                closePostModal();
             }
         });
 
