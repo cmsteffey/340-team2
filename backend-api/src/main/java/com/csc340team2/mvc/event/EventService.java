@@ -13,7 +13,7 @@ import com.csc340team2.mvc.account.Account;
 public class EventService {
     @Autowired
     private EventRepository eventRepository;
-    
+
     public Event createEvent(Account eventHost, String _title, String _description, Instant _startTime, int _eventDuration, String _eventAddress, int _eventCost)
     {
         Event returnEvent = new Event();
@@ -32,7 +32,12 @@ public class EventService {
     {
         return eventRepository.findById(eventId);
     }
+
     public List<Event> getEventsHostedBy(Account account){
         return eventRepository.getEventsByEventHostId(account.getId());
+    }
+
+    public List<Event> getUpcomingEvents() {
+        return eventRepository.findByStartTimeAfterOrderByStartTimeAsc(Instant.now());
     }
 }

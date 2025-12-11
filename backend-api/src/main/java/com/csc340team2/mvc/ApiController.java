@@ -149,6 +149,9 @@ public class ApiController {
             model.addAttribute("posts", postService.getAllPostsMadeBy(currentSession.getAccount()).stream().sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt())).toList());
             model.addAttribute("events", eventService.getEventsHostedBy(currentSession.getAccount()).stream().sorted(Comparator.comparing(Event::getStartTime)).toList());
         }
+        else {
+            model.addAttribute("upcomingEvents", eventService.getUpcomingEvents());
+        }
         return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";
     }
 

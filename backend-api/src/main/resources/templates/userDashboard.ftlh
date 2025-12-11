@@ -81,12 +81,36 @@
         </div>
 
         <div class="eventBox">
-            <div class="event">
-                <div class="dateBox">
-                    17
+            <#if upcomingEvents?? && upcomingEvents?has_content>
+                <#list upcomingEvents as event>
+                    <div class="event">
+                        <div class="dateBox">
+                            ${event.startTime?string("dd")}
+                        </div>
+                        <div class="eventDetails">
+                            <strong>${event.title}</strong>
+                            <#if event.description?has_content>
+                                <p>${event.description}</p>
+                            </#if>
+                            <p>Host: ${event.eventHost.username}</p>
+                            <#if event.eventAddress?has_content>
+                                <p>Location: ${event.eventAddress}</p>
+                            </#if>
+                            <p>Duration: ${event.eventDuration} minutes</p>
+                            <#if event.eventCost gt 0>
+                                <p>Cost: $${event.eventCost}</p>
+                            <#else>
+                                <p>Free Event</p>
+                            </#if>
+                            <p>Time: ${event.startTime?string("MMM dd, yyyy 'at' h:mm a")}</p>
+                        </div>
+                    </div>
+                </#list>
+            <#else>
+                <div class="event">
+                    <p>No upcoming events at this time.</p>
                 </div>
-                Upcoming coaching session with Ali!
-            </div>
+            </#if>
         </div>
     </div>
 </main>
