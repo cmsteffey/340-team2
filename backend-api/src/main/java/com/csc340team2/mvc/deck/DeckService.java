@@ -85,7 +85,7 @@ public class DeckService {
         newDeck.setScryfallUrl("");
 
         short deckColors = 0;
-        String firstCardId = null;
+        String lastCardId = null;
 
         for (DeckListParser.CardEntry entry : cardEntries) {
             try {
@@ -118,9 +118,7 @@ public class DeckService {
                     }
                 }
 
-                if (firstCardId == null) {
-                    firstCardId = scryfallCard.getUuid();
-                }
+                lastCardId = scryfallCard.getUuid();
 
                 scryfallClient.respectRateLimit();
 
@@ -130,7 +128,7 @@ public class DeckService {
         }
 
         newDeck.setColors(deckColors);
-        newDeck.setCoverCardUUID(firstCardId != null ? firstCardId : "");
+        newDeck.setCoverCardUUID(lastCardId != null ? lastCardId : "");
 
         return deckRepository.save(newDeck);
     }
