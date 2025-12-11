@@ -12,4 +12,6 @@ import com.csc340team2.mvc.event.Event;
 public interface EventSubscriptionRepository extends JpaRepository<EventSubscription, Long> {
     public List<EventSubscription> getByAccount(Account account);
     public List<EventSubscription> getByEvent(Event event);
+
+    void deleteByAccountAndEvent(Account account, Event event);
 }

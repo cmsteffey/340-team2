@@ -1,4 +1,4 @@
-﻿package com.csc340team2.mvc.availabilities;
+package com.csc340team2.mvc.availabilities;
 
 import com.csc340team2.mvc.account.AccountRole;
 import com.csc340team2.mvc.session.Session;

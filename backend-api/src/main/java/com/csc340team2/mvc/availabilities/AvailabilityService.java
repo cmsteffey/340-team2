@@ -1,4 +1,4 @@
-﻿package com.csc340team2.mvc.availabilities;
+package com.csc340team2.mvc.availabilities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

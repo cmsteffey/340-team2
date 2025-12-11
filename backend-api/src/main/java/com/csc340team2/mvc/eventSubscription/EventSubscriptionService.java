@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.csc340team2.mvc.account.Account;
@@ -30,8 +31,14 @@ public class EventSubscriptionService {
     {
         return eventSubscriptionRepository.getByEvent(event);
     }
+
     public List<EventSubscription> getEventsByAccount(Account account)
     {
         return eventSubscriptionRepository.getByAccount(account);
+    }
+
+    @Transactional
+    public void unsubscribeFromEvent(Account user, Event event) {
+        eventSubscriptionRepository.deleteByAccountAndEvent(user, event);
     }
 }

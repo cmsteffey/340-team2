@@ -25,9 +25,9 @@ public class EventSubscriptionController {
 
     @PostMapping("/eventSubscription")
     public ResponseEntity createEventSubscription(@RequestBody EventSubscriptionCreationData request) {
-        
+
         //get user and event to pass into eventSubscription
-        
+
         Optional<Account> account = accountService.getAccountById(request.getAccountId());
         if(account.isEmpty())
             return ResponseEntity.badRequest().build();
@@ -39,9 +39,25 @@ public class EventSubscriptionController {
 
         return ResponseEntity.ok(createdEventSubscription);
     }
+
+    @DeleteMapping("/eventSubscription")
+    public ResponseEntity deleteEventSubscription(@RequestBody EventSubscriptionCreationData request) {
+
+        Optional<Account> account = accountService.getAccountById(request.getAccountId());
+        if(account.isEmpty())
+            return ResponseEntity.badRequest().build();
+        Optional<Event> event = eventService.getByEventId(request.getEventId());
+        if(event.isEmpty())
+            return ResponseEntity.badRequest().build();
+
+        eventSubscriptionService.unsubscribeFromEvent(account.orElseThrow(), event.orElseThrow());
+
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/myEvents")
     public ResponseEntity findMyEvents(Session session){
-        Account account = session.getAccount(); 
+        Account account = session.getAccount();
 
         List<Event> joinedEvents = new ArrayList<Event>();
         List<EventSubscription> allEvents = eventSubscriptionService.getEventsByAccount(account);

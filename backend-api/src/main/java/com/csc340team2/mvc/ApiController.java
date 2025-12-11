@@ -7,6 +7,8 @@ import com.csc340team2.mvc.deck.DeckService;
 import com.csc340team2.mvc.deck.Deck;
 import com.csc340team2.mvc.event.Event;
 import com.csc340team2.mvc.event.EventService;
+import com.csc340team2.mvc.eventSubscription.EventSubscription;
+import com.csc340team2.mvc.eventSubscription.EventSubscriptionService;
 import com.csc340team2.mvc.post.PostService;
 import com.csc340team2.mvc.postSubscription.PostSubscriptionService;
 import com.csc340team2.mvc.session.Session;
@@ -49,6 +51,8 @@ public class ApiController {
     private PostService postService;
     @Autowired
     private EventService eventService;
+    @Autowired
+    private EventSubscriptionService eventSubscriptionService;
 
     @GetMapping("/view/decks")
     public String viewMyDecks(Session session, Model model){
@@ -130,6 +134,7 @@ public class ApiController {
     @GetMapping({"/view/dashboard", "/"})
     public String viewDashboard(Session currentSession, Model model){
         model.addAttribute("pct", Math.abs(new Random().nextInt()) % 100);
+        model.addAttribute("currentAccount", currentSession.getAccount());
 
         List<Account> accountList = accountService.getAllAccounts();
         Collections.shuffle(accountList);
@@ -145,13 +150,24 @@ public class ApiController {
 
         model.addAttribute("coachPosts", postSubscriptionService.getSubscribedPosts(currentSession.getAccount().getId()));
         LoggerFactory.getLogger(ApiController.class).debug("List {}", model.getAttribute("coachPosts"));
+
         if(currentSession.getAccount().getRole() == AccountRole.COACH){
             model.addAttribute("posts", postService.getAllPostsMadeBy(currentSession.getAccount()).stream().sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt())).toList());
             model.addAttribute("events", eventService.getEventsHostedBy(currentSession.getAccount()).stream().sorted(Comparator.comparing(Event::getStartTime)).toList());
+        } else {
+            List<Event> upcomingEvents = eventService.getUpcomingEvents();
+            model.addAttribute("upcomingEvents", upcomingEvents);
+
+            List<EventSubscription> userEventSubscriptions = eventSubscriptionService.getEventsByAccount(currentSession.getAccount());
+
+            Map<String, Boolean> eventSubscriptions = new HashMap<>();
+            for (Event event : upcomingEvents) {
+                boolean isSubscribed = userEventSubscriptions.stream().anyMatch(sub -> sub.getEvent().getId() == event.getId());
+                eventSubscriptions.put(String.valueOf(event.getId()), isSubscribed);
+            }
+            model.addAttribute("eventSubscriptions", eventSubscriptions);
         }
-        else {
-            model.addAttribute("upcomingEvents", eventService.getUpcomingEvents());
-        }
+
         return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";
     }
 
