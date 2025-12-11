@@ -189,6 +189,7 @@ public class ApiController {
                 eventSubscriptions.put(String.valueOf(event.getId()), isSubscribed);
             }
             model.addAttribute("eventSubscriptions", eventSubscriptions);
+
         }
 
         return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";
