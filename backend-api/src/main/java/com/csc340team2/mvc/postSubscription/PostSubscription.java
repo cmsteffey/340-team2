@@ -3,6 +3,8 @@ package com.csc340team2.mvc.postSubscription;
 import com.csc340team2.mvc.account.Account;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "postsubscription")
 public class PostSubscription
@@ -19,9 +21,12 @@ public class PostSubscription
     @ManyToOne(targetEntity = Account.class)
     private Account coach;
 
+    private Instant creationTime;
+
     public Account getCoach() { return coach; }
     public Account getUser() { return user; }
+    public Instant getCreationTime() { return creationTime; }
     public void setCoach(Account newCoach) { coach = newCoach; }
     public void setUser(Account newUser) { user = newUser; }
-
+    public void setCreationTime(Instant creationTime) { this.creationTime = creationTime; }
 }
