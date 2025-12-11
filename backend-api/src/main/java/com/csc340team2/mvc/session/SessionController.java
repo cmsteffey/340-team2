@@ -1,13 +1,10 @@
 package com.csc340team2.mvc.session;
 
+import org.springframework.web.bind.annotation.*;
 import tools.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.Optional;
@@ -43,5 +40,9 @@ public class SessionController {
         if(session.isEmpty())
             return ResponseEntity.status(404).contentType(MediaType.TEXT_PLAIN).body("Bad credentials");
         return ResponseEntity.status(204).header("Set-Cookie", session.orElseThrow().getSetCookieHeader()).build();
+    }
+    @GetMapping("/logout")
+    public ResponseEntity logout(){
+        return ResponseEntity.status(303).header("Location", "/view/login").header("Set-Cookie", "session_guid=;").build();
     }
 }

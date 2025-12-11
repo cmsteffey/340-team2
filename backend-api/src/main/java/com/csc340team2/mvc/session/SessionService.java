@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -24,6 +25,8 @@ public class SessionService {
         if(account.isEmpty())
             LoggerFactory.getLogger(SessionService.class).error("Account not found for email " + email);
         if(account.isEmpty())
+            return Optional.empty();
+        if(!new BCryptPasswordEncoder().matches(password, account.orElseThrow().getPassHash()))
             return Optional.empty();
         Session session = new Session();
         session.setAccount(account.orElseThrow());

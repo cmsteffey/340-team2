@@ -19,7 +19,7 @@
         <input type="text" name="lastName" placeholder="Last name" autocomplete="family-name"><br><br>
         <input type="text" name="username" placeholder="Username" autocomplete="username" required><br><br>
         <input type="email" name="email" placeholder="Email address" autocomplete="email" required><br><br>
-        <input type="password" name="password" placeholder="Password" autocomplete="current-password" required><br><br>
+        <input type="password" name="passHash" placeholder="Password" autocomplete="current-password" required><br><br>
         <label>Account type:
             <select name="role">
                 <option value="COACH">Coach</option>
