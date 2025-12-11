@@ -298,11 +298,13 @@ input[type="text"] {
 
 .modal-content {
     background: rgb(77, 80, 97);
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 30px;
     border-radius: 15px;
     width: 90%;
-    max-width: 600px;
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
     color: white;
     position: relative;
     animation: slideDown 0.3s;
@@ -424,6 +426,25 @@ input[type="text"] {
     margin-right: 10px;
 }
 
+.time-slot-option {
+    background: rgba(92, 128, 188, 0.3);
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.time-slot-option:hover {
+    background: rgba(92, 128, 188, 0.5);
+}
+
+.time-slot-option input[type="radio"] {
+    cursor: pointer;
+}
+
 .appointment-form {
     display: flex;
     flex-direction: column;
@@ -437,7 +458,9 @@ input[type="text"] {
 }
 
 .appointment-form input[type="date"],
-.appointment-form input[type="time"] {
+.appointment-form input[type="time"],
+.appointment-form input[type="datetime-local"],
+.appointment-form input[type="number"] {
     padding: 10px;
     border-radius: 6px;
     border: 2px solid rgb(92, 128, 188);
@@ -447,7 +470,9 @@ input[type="text"] {
 }
 
 .appointment-form input[type="date"]:focus,
-.appointment-form input[type="time"]:focus {
+.appointment-form input[type="time"]:focus,
+.appointment-form input[type="datetime-local"]:focus,
+.appointment-form input[type="number"]:focus {
     outline: none;
     border-color: rgb(150, 180, 220);
 }
@@ -509,6 +534,28 @@ input[type="text"] {
 }
 
 #reviewContent::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#commentContent {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid rgb(92, 128, 188);
+    background: rgb(122, 158, 166);
+    color: black;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+#commentContent:focus {
+    outline: none;
+    border-color: rgb(150, 180, 220);
+}
+
+#commentContent::placeholder {
     color: rgba(0, 0, 0, 0.5);
 }
 
