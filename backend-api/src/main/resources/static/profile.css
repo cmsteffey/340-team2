@@ -30,7 +30,7 @@ div[popover] input[type="file"]{
     color: blue;
     text-decoration: underline;
 }
-*:not(button, input, select) {
+*:not(button, input, select, textarea, option) {
     color: var(--text-main)
 }
 #profile-image {
