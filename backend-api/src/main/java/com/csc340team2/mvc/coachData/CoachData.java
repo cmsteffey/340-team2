@@ -19,9 +19,9 @@ public class CoachData {
     @Column(nullable = true)
     private String description;
     @Column(nullable = true)
-    private Short favoriteColors;
+    private Short favoriteColors = 0;
     @Column(nullable = true)
-    private Integer pricePerMinute;
+    private Integer pricePerMinute = 0;
 
     public Long getId() {
         return id;

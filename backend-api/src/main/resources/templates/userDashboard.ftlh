@@ -73,7 +73,7 @@
             <div class="searchResultsBox">
                 <#list coachPosts as post>
                     <div class="searchResult" onclick="openPostModal(${post?index})" style="cursor: pointer;">
-                        <span>${post.author.firstName}</span>
+                        <span>${post.author.username}</span>
                         <span>${post.formattedDate}</span>
                         <span>${post.title}</span>
                         <span>${post.content}</span>
@@ -212,6 +212,8 @@
             {
                 id: ${account.id},
                 username: "${account.username?js_string}",
+                firstname: "${account.firstName?js_string}",
+                lastname: "${account.lastName?js_string}",
                 description: "<#if account.coachData??>${(account.coachData.description!'')?js_string}</#if>"
             }<#if account?has_next>,</#if>
             </#if>
@@ -227,7 +229,7 @@
                 id: ${post.id},
                 title: "${post.title?js_string}",
                 content: "${post.content?js_string}",
-                author: "${post.author.firstName?js_string}",
+                author: "${post.author.username?js_string}",
                 date: "${post.formattedDate?js_string}"
             }<#if post?has_next>,</#if>
             </#list>
@@ -562,7 +564,7 @@
             const coach = coaches[index];
             const modal = document.getElementById('coachModal');
 
-            document.getElementById('coachModalName').textContent = coach.username;
+            document.getElementById('coachModalName').textContent = coach.username + " - " + coach.firstname + " " + coach.lastname;
             document.getElementById('coachModalDescription').textContent = coach.description || 'No description available';
 
             selectedRating = 0;
