@@ -33,4 +33,8 @@ public class PostService {
     public List<Post> getAllPostsMadeBy(Account author){
         return postRepository.getAllByAuthor(author);
     }
+
+    public void deletePost(Long id){
+        postRepository.deleteById(id);
+    }
 }

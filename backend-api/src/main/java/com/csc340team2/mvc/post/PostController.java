@@ -3,6 +3,7 @@ package com.csc340team2.mvc.post;
 import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.account.AccountRole;
 import com.csc340team2.mvc.account.AccountService;
+import com.csc340team2.mvc.event.Event;
 import com.csc340team2.mvc.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -40,5 +41,14 @@ public class PostController {
         if(account.isEmpty() || account.orElseThrow().getRole() != AccountRole.COACH)
             return ResponseEntity.status(404).contentType(MediaType.TEXT_PLAIN).body("Account not found or not coach");
         return ResponseEntity.ok(postService.getAllPostsMadeBy(account.orElseThrow()));
+    }
+    @PostMapping("/delete-post/{id}")
+    public ResponseEntity deleteEvent(Session session, @PathVariable("id") Long id){
+        Optional<Post> post = postService.getPostById(id);
+        if(post.isEmpty() || !post.orElseThrow().getAuthor().getId().equals(session.getAccount().getId())){
+            return ResponseEntity.status(303).header("Location", "/view/dashboard").build();
+        }
+        postService.deletePost(id);
+        return ResponseEntity.status(303).header("Location", "/view/dashboard").build();
     }
 }
