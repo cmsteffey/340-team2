@@ -1,12 +1,15 @@
 package com.csc340team2.mvc.post;
 
 import com.csc340team2.mvc.account.Account;
+import com.csc340team2.mvc.comment.Comment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -28,6 +31,9 @@ public class Post {
     @ManyToOne(targetEntity = Account.class)
     @JsonIgnoreProperties("posts")
     private Account author;
+
+    @OneToMany(mappedBy="post")
+    private List<Comment> comments = new ArrayList<>();
 
     public Long getId() {
         return id;

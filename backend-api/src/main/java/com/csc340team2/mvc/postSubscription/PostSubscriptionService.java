@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -28,6 +29,9 @@ public class PostSubscriptionService {
     public boolean isSubscribed(Account user, Account coach){
         return postSubscriptionRepository.existsByCoachAndUser(coach, user);
     }
+    public List<Object[]> getDailySubscribers(Account coach){
+        return postSubscriptionRepository.getDailySubscribers(coach.getId());
+    }
 
     @Transactional
     public void subscribe(Account user, Account coach){
@@ -35,6 +39,7 @@ public class PostSubscriptionService {
             PostSubscription newSubscription = new PostSubscription();
             newSubscription.setUser(user);
             newSubscription.setCoach(coach);
+            newSubscription.setCreationTime(Instant.now());
             postSubscriptionRepository.save(newSubscription);
         }
     }

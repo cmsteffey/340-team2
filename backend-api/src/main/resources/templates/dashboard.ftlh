@@ -19,28 +19,36 @@
             <button hidden id="add-block" popovertarget="add-block-menu">+</button>
             <div class="dashbox-container">
                 <div class="dashbox">
-                    <h2 class="dashbox-title">Week Revenue</h2>
-                    <h1 class="dashbox-content">$30.89</h1>
-                </div>
-                <@macros.dashbox "Test"/>
-                <div class="dashbox">
                     <h2 class="dashbox-title">Daily New Subscribers</h2>
-                    <svg class="dashbox-content" viewBox="0 0 200 100">
+                    <svg class="dashbox-content" viewBox="0 0 200 130">
                         <#list 0..10 as num>
-                            <line x1="0" x2="200" y1="${num * 10}" y2="${num * 10}" stroke="white" stroke-width=".5px"></line>
+                            <text x="0" y="${num * 10 + 12}" font-size="8px" fill="white"> ${10 - num}</text>
+                            <line x1="20" x2="200" y1="${num * 10 + 10}" y2="${num * 10 + 10}" stroke="white" stroke-width=".5px"></line>
                         </#list>
-                        <#list 0..99 as num>
-                            <line x1="${num}" y1="${num}" x2="${num + 1}" y2="${num / 2}" stroke="beige"></line>
+                        <#list subscribersPerDay as subCount>
+                            <circle r="4" cx="${200 - subCount?index * 30}" cy="${110 - subCount * 10}" fill="red">
+                                <title>${subCount?index} day${(subCount?index == 1)?then("","s")} ago, ${subCount} new subscriber${(subCount == 1)?then("", "s")}</title>
+                            </circle>
+                            <#if subCount?index == 6><#break></#if>
+                            <line x1="${200 - subCount?index * 30}" y1="${110 - subCount * 10}" x2="${200 - (subCount?index + 1) * 30}" y2="${110 - subscribersPerDay[subCount?index + 1] * 10}" stroke="red" stroke-width="2px"></line>
                         </#list>
                     </svg>
                 </div>
                 <div class="dashbox">
                     <h2 class="dashbox-title">New Reviews</h2>
-                    <h1 class="dashbox-content">4/5: Ali was exceptiona...<br>5/5: Ali was very he...</h1>
+                    <div class="dashbox-content">
+                        <#list reviews as review>
+                            <h3>${review.customer.username}<br>${review.rating}/5: ${(review.content?? && review.content?length > 0)?then(review.content, "")}</h3>
+                        </#list>
+                    </div>
                 </div>
                 <div class="dashbox">
-                    <h2 class="dashbox-title">Post stats</h2>
-                    <h1 class="dashbox-content">Recent: 3040 likes</h1>
+                    <h2 class="dashbox-title">Recent comments</h2>
+                    <div class="dashbox-content">
+                        <#list comments as comment>
+                            <h3>On "${comment.post.title}":<br>${comment.content}</h3>
+                        </#list>
+                    </div>
                 </div>
                 <div class="dashbox">
                     <h2 class="dashbox-title">Review Rate</h2>
@@ -68,6 +76,7 @@
                                 <h5>${post.createdAt?datetime("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")?string}</h5>
                                 <span>${post.content}</span>
                             </div>
+                            <#sep><br></#sep>
                         </#list>
                     </#if>
                 </div>
@@ -83,6 +92,7 @@
                                 <h5>${event.startTime?datetime("yyyy-MM-dd'T'HH:mm:ss'Z'")?string} at ${event.eventAddress} for ${(event.eventDuration > 3600)?then((event.eventDuration / 3600)?floor + " hour", "")}${(event.eventDuration > 7200)?then("s", "")}${(event.eventDuration > 3600 && event.eventDuration % 3600 >= 60)?then(", ", "")}${(event.eventDuration % 3600 >= 60)?then(((event.eventDuration % 3600) / 60)?floor + " minute", "")}${(event.eventDuration % 3600 >= 120)?then("s", "")}</h5>
                                 <span>${event.description}</span>
                             </div>
+                            <#sep><br></#sep>
                         </#list>
                     </#if>
                 </div>

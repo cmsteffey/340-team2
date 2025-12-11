@@ -21,4 +21,6 @@ public interface PostSubscriptionRepository extends JpaRepository<PostSubscripti
     //    select post.title, post.content, account.username, post.created_at from postsubscription ps join post on post.author_id = ps.coach_id join account on post.author_id = account.id where ps.customer_id = 1
     //    order by post.created_at desc limit 10;
 
+    @Query(value = "select extract(day from current_timestamp - ps.creation_time), count(*) from postsubscription ps where coach_id = :coachId and extract(day from current_timestamp - ps.creation_time) <= 6 group by extract(day from current_timestamp - ps.creation_time)", nativeQuery = true)
+    List<Object[]> getDailySubscribers(@Param("coachId") Long coachId);
 }
