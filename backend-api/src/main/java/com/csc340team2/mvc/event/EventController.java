@@ -52,7 +52,7 @@ public class EventController {
         ZoneId zone = ZoneId.of("America/New_York");
         LocalDate date = LocalDate.of(
                 Integer.parseInt(dateString.substring(0, 4)),
-                Integer.parseInt(dateString.substring(5, 7)) - 1,
+                Integer.parseInt(dateString.substring(5, 7)),
                 Integer.parseInt(dateString.substring(8, 10))
         );
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(startHour, startMinute));
