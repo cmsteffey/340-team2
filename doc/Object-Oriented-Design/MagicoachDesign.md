@@ -22,7 +22,7 @@ Table of Contents
 |-------|-------|--------------------|---------|
 | Sasha | 10/18 | Initial Template   | 1       |
 | Sasha | 10/18 | Coach UCs          | 2       |
-|       |       |                    |         |
+| Sasha | 12/11 | Updated diagrams   | 3       |
 
 ## 1. Product Overview
 
