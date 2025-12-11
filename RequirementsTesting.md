@@ -40,3 +40,11 @@ P1 exits the app.
 1. Customer signs into their dashboard.
 2. Customers subscribes to a coach of their choosing.
 3. Customer writes a comment on a post made by one of their subscribed coaches.
+
+#### 9. Customer imports a deck
+1. Customer signs into their dashboard and navigates to the decks tab.
+2. Customer finds a deck they like on moxfield
+3. Customer exports the deck as plain text
+4. Customer pasts into import field and names
+5. Customer has a shiny new deck ready to go.
+6. Customer shows coach and they discuss during their appointment.
