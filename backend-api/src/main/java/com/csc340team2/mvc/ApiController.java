@@ -3,6 +3,9 @@ package com.csc340team2.mvc;
 import com.csc340team2.mvc.account.AccountService;
 import com.csc340team2.mvc.appointment.Appointment;
 import com.csc340team2.mvc.appointment.AppointmentService;
+import com.csc340team2.mvc.availabilities.AvailabilityService;
+import com.csc340team2.mvc.comment.Comment;
+import com.csc340team2.mvc.comment.CommentService;
 import com.csc340team2.mvc.deck.DeckService;
 import com.csc340team2.mvc.deck.Deck;
 import com.csc340team2.mvc.event.Event;
@@ -11,6 +14,8 @@ import com.csc340team2.mvc.eventSubscription.EventSubscription;
 import com.csc340team2.mvc.eventSubscription.EventSubscriptionService;
 import com.csc340team2.mvc.post.PostService;
 import com.csc340team2.mvc.postSubscription.PostSubscriptionService;
+import com.csc340team2.mvc.review.Review;
+import com.csc340team2.mvc.review.ReviewService;
 import com.csc340team2.mvc.session.Session;
 import com.csc340team2.mvc.session.SessionService;
 import com.csc340team2.mvc.account.Account;
@@ -27,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.YearMonth;
 import java.time.ZoneOffset;
@@ -53,6 +59,11 @@ public class ApiController {
     private EventService eventService;
     @Autowired
     private EventSubscriptionService eventSubscriptionService;
+    private AvailabilityService availabilityService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/view/decks")
     public String viewMyDecks(Session session, Model model){
@@ -119,7 +130,9 @@ public class ApiController {
     }
 
     @GetMapping("/view/profile")
-    public String viewProfile(Session session){
+    public String viewProfile(Session session, Model model){
+        model.addAttribute("dayNames", new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
+        model.addAttribute("availabilities", availabilityService.getAvailabilitiesForCoach(session.getAccount()));
         return "profile";
     }
     @GetMapping("/view/login")
@@ -166,6 +179,15 @@ public class ApiController {
                 eventSubscriptions.put(String.valueOf(event.getId()), isSubscribed);
             }
             model.addAttribute("eventSubscriptions", eventSubscriptions);
+            model.addAttribute("availabilities", availabilityService.getAvailabilitiesForCoach(currentSession.getAccount()));
+            model.addAttribute("reviews", reviewService.getReviewsByCoach(currentSession.getAccount()).stream().limit(4).sorted(Comparator.comparing(Review::getPostTime).reversed()).toList());
+            model.addAttribute("comments", commentService.getCommentsByPostAuthor(currentSession.getAccount()).stream().limit(4).sorted(Comparator.comparing(Comment::getPostTime).reversed()).toList());
+            int[] weekOfSubscribers = new int[7];
+            List<Object[]> subscribeCounts = postSubscriptionService.getDailySubscribers(currentSession.getAccount());
+            for(Object[] fields : subscribeCounts){
+                weekOfSubscribers[((BigDecimal)fields[0]).intValue()] = (int)(long)(fields[1]);
+            }
+            model.addAttribute("subscribersPerDay", weekOfSubscribers);
         }
 
         return currentSession.getAccount().getRole() == AccountRole.COACH ?  "dashboard" : "userDashboard";

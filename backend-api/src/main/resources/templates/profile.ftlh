@@ -27,6 +27,15 @@
                 </div>
             </div>
             <br>
+            <h3>My Availabilities</h3>
+            <button popovertarget="add-availability">Add Availability
+
+            </button>
+            <#list availabilities as availability>
+                <div>
+                    ${dayNames[availability.weekday]}s from ${(availability.startTime / 3600)?string?left_pad(2, '0')}:${((availability.startTime % 3600) / 60)?string?left_pad(2, '0')}
+                </div>
+            </#list>
 
         </main>
         <div id="image-update" popover>
@@ -43,6 +52,21 @@
                 <textarea name="description" rows="5" cols="50"></textarea>
                 <br>
                 <button>Update</button>
+            </form>
+        </div>
+        <div popover id="add-availability">
+            <form enctype="multipart/form-data" action="/create-availability" method="POST">
+            <h1>Add an availability slot</h1>
+                For <select name="weekday">
+                    <#list dayNames as weekday>
+                        <option value="${weekday?index}" ${(weekday == "Monday")?then(" selected", "")}>
+                            ${weekday}s
+                        </option>
+                    </#list>
+                </select><br>
+                Starting at <input name="starthour" maxlength="3" type="number">:<input name="startminute" type="number" maxlength="3"> <select name="ap"><option selected value="">AM</option><option value="PM">PM</option></select><br>
+                For <input name="lengthmins"> minutes<br>
+                <button>Submit</button>
             </form>
         </div>
     </body>

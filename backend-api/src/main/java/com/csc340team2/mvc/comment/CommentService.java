@@ -43,4 +43,8 @@ public class CommentService {
     public Comment updateComment(Comment comment){
         return commentRepository.save(comment);
     }
+
+    public List<Comment> getCommentsByPostAuthor(Account coach){
+        return commentRepository.getAllByPostAuthor(coach);
+    }
 }
