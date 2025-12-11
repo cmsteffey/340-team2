@@ -10,12 +10,13 @@ import com.csc340team2.mvc.account.AccountRole;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.csc340team2.mvc.account.Account;
 import com.csc340team2.mvc.session.Session;
 
-@RestController
+@Controller
 public class EventController {
     @Autowired
     private EventRepository eventRepository;
@@ -52,7 +53,7 @@ public class EventController {
         ZoneId zone = ZoneId.of("America/New_York");
         LocalDate date = LocalDate.of(
                 Integer.parseInt(dateString.substring(0, 4)),
-                Integer.parseInt(dateString.substring(5, 7)) - 1,
+                Integer.parseInt(dateString.substring(5, 7)),
                 Integer.parseInt(dateString.substring(8, 10))
         );
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(startHour, startMinute));
