@@ -40,4 +40,8 @@ public class EventService {
     public List<Event> getUpcomingEvents() {
         return eventRepository.findByStartTimeAfterOrderByStartTimeAsc(Instant.now());
     }
+
+    public void deleteEvent(Long eventId){
+        eventRepository.deleteById(eventId);
+    }
 }

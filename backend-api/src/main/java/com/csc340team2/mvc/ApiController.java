@@ -169,7 +169,9 @@ public class ApiController {
             model.addAttribute("events", eventService.getEventsHostedBy(currentSession.getAccount()).stream().sorted(Comparator.comparing(Event::getStartTime)).toList());
             model.addAttribute("availabilities", availabilityService.getAvailabilitiesForCoach(currentSession.getAccount()));
             model.addAttribute("reviews", reviewService.getReviewsByCoach(currentSession.getAccount()).stream().limit(4).sorted(Comparator.comparing(Review::getPostTime).reversed()).toList());
-            model.addAttribute("comments", commentService.getCommentsByPostAuthor(currentSession.getAccount()).stream().limit(4).sorted(Comparator.comparing(Comment::getPostTime).reversed()).toList());
+            List<Comment> allComments = commentService.getCommentsByPostAuthor(currentSession.getAccount());
+            model.addAttribute("comments", allComments.stream().limit(4).sorted(Comparator.comparing(Comment::getPostTime).reversed()).toList());
+            model.addAttribute("allcomments", allComments.stream().sorted(Comparator.comparing(Comment::getPostTime).reversed()).toList());
             int[] weekOfSubscribers = new int[7];
             List<Object[]> subscribeCounts = postSubscriptionService.getDailySubscribers(currentSession.getAccount());
             for(Object[] fields : subscribeCounts){

@@ -50,7 +50,7 @@
                         </#list>
                     </div>
                 </div>
-                <div class="dashbox">
+                <div class="dashbox" hidden>
                     <h2 class="dashbox-title">Review Rate</h2>
                     <svg class="dashbox-content pieSvg" viewBox="0 0 100 110">
                         <circle class="outer-circle" r="50" cx="50" cy="50"></circle>
@@ -72,9 +72,10 @@
                     <#else>
                         <#list posts as post>
                             <div class="dashboard-post">
-                                <h3>${post.title}</h3>
+                                <h3>${post.title} <button popovertarget="post-${post.id}">View</button></h3>
                                 <h5>${post.createdAt?datetime("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")?string}</h5>
                                 <span>${post.content}</span>
+                                <form action="/delete-post/${post.id}" method="POST"><button>Delete Post</button></form>
                             </div>
                             <#sep><br></#sep>
                         </#list>
@@ -89,8 +90,9 @@
                         <#list events as event>
                             <div class="dashboard-event">
                                 <h3>${event.title}</h3>
-                                <h5>${event.startTime?datetime("yyyy-MM-dd'T'HH:mm:ss'Z'")?string} at ${event.eventAddress} for ${(event.eventDuration > 3600)?then((event.eventDuration / 3600)?floor + " hour", "")}${(event.eventDuration > 7200)?then("s", "")}${(event.eventDuration > 3600 && event.eventDuration % 3600 >= 60)?then(", ", "")}${(event.eventDuration % 3600 >= 60)?then(((event.eventDuration % 3600) / 60)?floor + " minute", "")}${(event.eventDuration % 3600 >= 120)?then("s", "")}</h5>
+                                <h5>${event.startTime?datetime("yyyy-MM-dd'T'HH:mm:ss'Z'")?string} at ${event.eventAddress} for ${(event.eventDuration >= 3600)?then((event.eventDuration / 3600)?floor + " hour", "")}${(event.eventDuration >= 7200)?then("s", "")}${(event.eventDuration >= 3600 && event.eventDuration % 3600 >= 60)?then(", ", "")}${(event.eventDuration % 3600 >= 60)?then(((event.eventDuration % 3600) / 60)?floor + " minute", "")}${(event.eventDuration % 3600 >= 120)?then("s", "")}</h5>
                                 <span>${event.description}</span>
+                                <form action="/delete-event/${event.id}" method="POST"><button>Delete Event</button></form>
                             </div>
                             <#sep><br></#sep>
                         </#list>
@@ -129,5 +131,24 @@
                 <button>Create!</button>
             </form>
         </div>
+        <#list posts as post>
+            <div popover id="post-${post.id}" style="color: var(--text-main)">
+                <h2>${post.title}</h2>
+                <h3>${post.author.username}</h3>
+                <h5>${post.createdAt?datetime("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")?string}</h5>
+                <p>${post.content}</p>
+                <br>
+                <h2>Comments</h2>
+                <#list allcomments as comment>
+                    <#if comment.post.id == post.id>
+                        <div>
+                            <h4>${comment.customer.username}</h4>
+                            <h5>${post.createdAt?datetime("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")?string}</h5>
+                            <p>${comment.content}</p>
+                        </div>
+                    </#if>
+                </#list>
+            </div>
+        </#list>
     </body>
 </html>

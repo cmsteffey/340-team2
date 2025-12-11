@@ -3,12 +3,14 @@ package com.csc340team2.mvc.event;
 import java.time.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.csc340team2.mvc.account.AccountRole;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -81,5 +83,14 @@ public class EventController {
     {
         List<Event> events = eventRepository.findAll();
         return ResponseEntity.ok(events);
+    }
+    @PostMapping("/delete-event/{id}")
+    public ResponseEntity deleteEvent(Session session, @PathVariable("id") Long id){
+        Optional<Event> event = eventService.getByEventId(id);
+        if(event.isEmpty() || !event.orElseThrow().getEventHost().getId().equals(session.getAccount().getId())){
+            return ResponseEntity.status(303).header("Location", "/view/dashboard").build();
+        }
+        eventService.deleteEvent(id);
+        return ResponseEntity.status(303).header("Location", "/view/dashboard").build();
     }
 }

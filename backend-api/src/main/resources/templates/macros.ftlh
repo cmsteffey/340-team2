@@ -8,7 +8,9 @@
         <a href="/view/decks">Decks</a>
         <div class="right-side-links">
             <#if currentAccount??>
-                <a class="login-link" href="/view/profile">My Account: ${currentAccount.username}</a>
+                <a class="login-link" <#if currentAccount.role?string == "COACH">href="/view/profile"</#if>>My Account: ${currentAccount.username}</a>
+                <span style="margin-left: 20px;"> </span>
+
                 <a class="logout-link" href="/logout">Log Out</a>
             <#else>
             <a class="login-link" href="/view/login">Log In</a> or <a class="login-link" href="/view/register">Register</a>
